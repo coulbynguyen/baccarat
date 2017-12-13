@@ -37,9 +37,9 @@ void shuffle(int* shoe){
 
 //===================================
 //setting ai bets
-void set_ai_bets(ai** list_of_ai, int* shoe_card, int idx){
-	for(int i = 0; i < 6; i++){
-		list_of_ai[i]->set_bet_type(shoe_card, idx);
+void set_ai_bets(ai** list_of_ai, int* shoe_card, int idx, int count){
+	for(int i = 0; i < 10; i++){
+		list_of_ai[i]->set_bet_type(shoe_card, idx, count);
 	}
 	for(int i = 4; i < 6; i++){
 		list_of_ai[i]->set_bet(0, shoe_card, idx);
@@ -51,7 +51,7 @@ void set_ai_bets(ai** list_of_ai, int* shoe_card, int idx){
 //=================================
 //Paying out ai bets
 void pay_ai_bets(ai** list_of_ai, int hand_result){
-	for(int i = 0; i < 6; i++){
+	for(int i = 0; i < 10; i++){
 		if(list_of_ai[i]->get_bet_type() == hand_result){
 			//ai wins -> add bet to capital
 			list_of_ai[i]->add_to_capital(list_of_ai[i]->get_bet());
@@ -321,18 +321,22 @@ int main(){
       }
    }
 
-   ai** list_of_ai = new ai*[6];
+   ai** list_of_ai = new ai*[10];
    list_of_ai[0] = new ai("always banker");
    list_of_ai[1] = new ai("always player");
    list_of_ai[2] = new ai("alternate banker and player");
    list_of_ai[3] = new ai("copy last win");
    list_of_ai[4] = new ai("double up banker");
    list_of_ai[5] = new ai("double up player");
+   list_of_ai[6] = new ai("count banker");
+   list_of_ai[7] = new ai("count player");
+   list_of_ai[8] = new ai("count high banker");
+   list_of_ai[9] = new ai("count high player");
    //this is how you access the data
    //cout << list_of_ai[0]->get_ai_name() << endl;
 
    while(top_of_deck <= red_card){
-      set_ai_bets(list_of_ai, shoe_card, idx);
+      set_ai_bets(list_of_ai, shoe_card, idx, count);
       /* these lines of code shows the ai name and the bet they are betting on
 	 for(int i = 0; i < 4; i++){
 	 cout << list_of_ai[i]->get_ai_name() << " BETS ON " << list_of_ai[i]->get_bet_type() << endl;
@@ -348,7 +352,7 @@ int main(){
 	 }*/
    }
    /* these lines of code shows the ai name and the amount of money they have*/
-   for(int i = 0; i < 6; i++){
+   for(int i = 0; i < 10; i++){
       cout << list_of_ai[i]->get_ai_name() << " HAS " << list_of_ai[i]->get_capital() << endl;
    }
    improved_shoe_card(shoe_card, idx, shoe_card2);

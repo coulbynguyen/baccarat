@@ -15,7 +15,9 @@ class ai{
 	public:
 	   ai(string);
 	   string get_ai_name();
-	   void set_bet_type(int*, int);
+	   int count_set_bet_type(string, int);
+	   int count_set_bet(int);	   
+	   void set_bet_type(int*, int, int);
 	   int get_bet_type();
 	   void set_bet(int, int*, int);
 	   int get_bet();

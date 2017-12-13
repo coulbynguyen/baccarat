@@ -14,7 +14,50 @@ string ai::get_ai_name(){
 	return ai_name;
 }
 
-void ai::set_bet_type(int* shoe_card, int idx){
+int ai::count_set_bet_type(string ai_name, int count){
+	if(ai_name == "count banker"){
+		return 1;
+	}
+	if(ai_name == "count player"){
+		return 0;
+	}
+	if(ai_name == "count high banker"){
+		if(count >= 0){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+	if(ai_name == "count high player"){
+		if(count >= 0){
+			return 0;
+		}
+		else{
+			return 1;
+		}
+	}
+}
+
+int ai::count_set_bet(int count){
+   	if(count >= 6){
+		return 25;
+	}
+   	else if(count >= 3){
+		return 10;
+	}
+	else if(count <= 6){
+		return 25;
+	}
+	else if(count <= 3){
+		return 10;
+	}
+	else{
+		return 0;
+	}
+}
+
+void ai::set_bet_type(int* shoe_card, int idx, int count){
    //if bet = 0 the bet is for the player
    //   bet = false
    //if bet = 1 the bet is for the banker
@@ -24,10 +67,10 @@ void ai::set_bet_type(int* shoe_card, int idx){
    if((ai_name == "always banker")||(ai_name == "double up banker")){
 	banker_bet = 1;
    }
-   if((ai_name == "always player")||(ai_name == "double up player")){
+   else if((ai_name == "always player")||(ai_name == "double up player")){
 	banker_bet = 0;
    }
-   if(ai_name == "alternate banker and player"){
+   else if(ai_name == "alternate banker and player"){
 	if(banker_bet == 1){
 		banker_bet = 0;
 	}
@@ -35,7 +78,7 @@ void ai::set_bet_type(int* shoe_card, int idx){
 		banker_bet = 1;
 	}
    }
-   if(ai_name == "copy last win"){
+   else if(ai_name == "copy last win"){
         if(idx == -1){
 		banker_bet = 1;
 	}
@@ -45,6 +88,10 @@ void ai::set_bet_type(int* shoe_card, int idx){
 	else{
    	   banker_bet = shoe_card[idx];
 	}
+   }
+   else if((ai_name == "count banker")||(ai_name == "count player")||("count high banker")||("count high player")){
+	banker_bet = count_set_bet_type(ai_name, count);
+	bet = count_set_bet(count);
    }
 
    if((capital - bet) < 0){
