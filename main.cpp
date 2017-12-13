@@ -203,15 +203,18 @@ void burn_top_cards(int* shoe, int& top_of_deck){
 //=============================
 //=============================
 //Print the winner of the round
-void print_winner(int result){
+void print_winner(int result, int& player_wins, int& banker_wins, int& ties){
 	if(result == 0){
 	   cout << "PLAYER WINS" << endl;
+	   player_wins += 1;
 	}
 	if(result == 1){
 	   cout << "BANKER WINS" << endl;
+	   banker_wins += 1;
 	}
 	if(result == 2){
 	   cout << " TIE " << endl;
+	   ties += 1;
 	}
 }
 //==============================
@@ -223,6 +226,9 @@ int main(){
    int idx = -1;
    int hand_result;
    int red_card = 416 - (rand()%52 + 35);
+   int banker_wins = 0;
+   int player_wins = 0;
+   int ties = 0;
    shuffle(shoe);
    burn_top_cards(shoe, top_of_deck);
    ai** list_of_ai = new ai*[4];
@@ -243,7 +249,7 @@ int main(){
 
    hand_result = winner_of_hand(shoe, top_of_deck);
    update_shoe_card(shoe_card, idx, hand_result);
-   print_winner(hand_result);
+   print_winner(hand_result, player_wins, banker_wins, ties);
    pay_ai_bets(list_of_ai, hand_result);
    /* these lines of code shows the ai name and the amount of money they have
    for(int i = 0; i < 4; i++){
@@ -254,6 +260,10 @@ int main(){
    for(int i = 0; i < 4; i++){
 	cout << list_of_ai[i]->get_ai_name() << " HAS " << list_of_ai[i]->get_capital() << endl;
    }
+   cout << "TOTAL PLAYER WINS: " << player_wins << endl;
+   cout << "TOTAL BANKER WINS: " << banker_wins << endl;
+   cout << "TOTAL TIES: " << ties << endl;
+   cout << "TOTAL HANDS: " << player_wins + banker_wins + ties << endl;
 
    return 0;
 }
