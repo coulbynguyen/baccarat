@@ -144,6 +144,7 @@ int winner_of_hand(int* shoe, int& top_of_deck){
 		else if((banker == 4) && ((p3 == 2) || (p3 == 3) || (p3 == 4) || (p3 == 5) || (p3 == 6) || (p3 == 7))){
 			//banker draws a card
 			banker = (banker + shoe[top_of_deck])%10;
+			top_of_deck += 1;
 			//compare the hands and return the result
 			return compare_the_hands(player, banker);
 		}
@@ -154,6 +155,7 @@ int winner_of_hand(int* shoe, int& top_of_deck){
 		else if((banker == 5) && ((p3 == 4) || (p3 == 5) || (p3 == 6) || (p3 == 7))){
 			//banker draws a card
 			banker = (banker + shoe[top_of_deck])%10;
+			top_of_deck += 1;
 			//compare the hands and return the result
 			return compare_the_hands(player, banker);
 		}
@@ -164,6 +166,7 @@ int winner_of_hand(int* shoe, int& top_of_deck){
 		else if((banker == 6) && ((p3 == 6) || (p3 == 7))){
 			//banker draws a card
 			banker = (banker + shoe[top_of_deck])%10;
+			top_of_deck += 1;
 			//compare the hands and return the result
 			return compare_the_hands(player, banker);
 		}
