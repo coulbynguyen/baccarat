@@ -184,6 +184,49 @@ int winner_of_hand(int* shoe, int& top_of_deck){
 
 //================================
 
+//==============================
+//improved shoe card
+
+void improved_shoe_card(int* shoe_card, int idx, int shoe_card2[20][50]){
+//array[Y][X]
+//array[DEPTH][WIDTH]
+
+   shoe_card2[0][0] = shoe_card[0];
+   int x = 1;
+   int y = 0;
+   for(int i = 1; i < idx; i++){
+	if((shoe_card[i] == shoe_card2[0][y])||(shoe_card[i] == 2)){
+		shoe_card2[x][y] = shoe_card[i];
+		x += 1;
+	}
+	else{
+		y += 1;
+		x = 0;
+		shoe_card2[x][y] = shoe_card[i];
+		x += 1;
+	}
+   }
+   
+   
+   /*int x = 1;
+	int y = 0;
+	for(int i = 1; i <= idx; i++){
+		if((shoe_card[i] == shoe_card2[x-1][y])||(shoe_card[i] == 2)){
+			shoe_card2[x][y] = shoe_card[i];
+			x += 1;
+		}
+		else{
+			y += 1;
+			x = 0;
+			shoe_card2[x][y] = shoe_card[i];
+		}
+	}
+	*/
+}
+
+//================================
+
+
 //===============================
 //Updating the shoe card
 void update_shoe_card(int* shoe_card, int& idx, int result){
@@ -223,14 +266,23 @@ int main(){
    int* shoe = new int[416];
    int top_of_deck = 0;
    int* shoe_card = new int[100];
+   int shoe_card2[20][50] = {0};
    int idx = -1;
    int hand_result;
    int red_card = 416 - (rand()%52 + 35);
    int banker_wins = 0;
    int player_wins = 0;
    int ties = 0;
+
    shuffle(shoe);
    burn_top_cards(shoe, top_of_deck);
+   
+   for(int x = 0; x < 50; x++){
+	for(int y = 0; y < 20; y++){
+		shoe_card2[y][x] = 8;
+	}
+   }
+
    ai** list_of_ai = new ai*[4];
    list_of_ai[0] = new ai("always banker");
    list_of_ai[1] = new ai("always player");
@@ -259,6 +311,24 @@ int main(){
    /* these lines of code shows the ai name and the amount of money they have*/
    for(int i = 0; i < 4; i++){
 	cout << list_of_ai[i]->get_ai_name() << " HAS " << list_of_ai[i]->get_capital() << endl;
+   }
+   improved_shoe_card(shoe_card, idx, shoe_card2);
+   for(int x = 0; x < 20; x++){
+	for(int y = 0; y < 50; y++){
+	 if(shoe_card2[x][y] == 0){
+		cout << " P "; 
+	 }
+	 if(shoe_card2[x][y] == 1){
+		cout << " B ";
+	 }
+	 if(shoe_card2[x][y] == 2){
+		cout << " T ";
+	 }
+	 if(shoe_card2[x][y] == 8){
+		cout << " - ";
+	 }
+      }	
+      cout << endl;
    }
    cout << "TOTAL PLAYER WINS: " << player_wins << endl;
    cout << "TOTAL BANKER WINS: " << banker_wins << endl;
