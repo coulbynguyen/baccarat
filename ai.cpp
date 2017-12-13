@@ -14,15 +14,41 @@ string ai::get_ai_name(){
 	return ai_name;
 }
 
-void ai::set_bet_type(bool banker_player){
+void ai::set_bet_type(int* shoe_card, int idx){
    //if bet = 0 the bet is for the player
    //   bet = false
    //if bet = 1 the bet is for the banker
    //   bet = true
-	banker_bet = banker_player;
+   //if bet = 2 the result is a tie
+   //	banker_bet = banker_player;
+   if(ai_name == "always banker"){
+	banker_bet = 1;
+   }
+   if(ai_name == "always player"){
+	banker_bet = 0;
+   }
+   if(ai_name == "alternate banker and player"){
+	if(banker_bet == 1){
+		banker_bet = 0;
+	}
+	else{
+		banker_bet = 1;
+	}
+   }
+   if(ai_name == "copy last win"){
+        if(idx == -1){
+		banker_bet = 1;
+	}
+	else if(shoe_card[idx] == 2){
+		banker_bet = 1;
+	}
+	else{
+   	   banker_bet = shoe_card[idx];
+	}
+   }
 }
 
-bool ai::get_bet_type(){
+int ai::get_bet_type(){
 	return banker_bet;
 }
 
