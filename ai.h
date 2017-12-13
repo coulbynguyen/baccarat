@@ -17,7 +17,7 @@ class ai{
 	   string get_ai_name();
 	   void set_bet_type(int*, int);
 	   int get_bet_type();
-	   void set_bet(int);
+	   void set_bet(int, int*, int);
 	   int get_bet();
 	   void add_to_capital(int);
 	   void sub_from_capital(int);
