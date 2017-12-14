@@ -56,7 +56,7 @@ int ai::count_set_bet(int count){
 		return 0;
 	}
 }
-
+/*
 void ai::set_bet_type(int* shoe_card, int idx, int count){
    //if bet = 0 the bet is for the player
    //   bet = false
@@ -99,6 +99,7 @@ void ai::set_bet_type(int* shoe_card, int idx, int count){
    }
 
 }
+*/
 
 int ai::get_bet_type(){
 	return banker_bet;

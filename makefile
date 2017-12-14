@@ -1,2 +1,2 @@
 run:
-	g++ main.cpp ai.cpp -o run
+	g++ main.cpp functions.cpp ai.cpp -o run
