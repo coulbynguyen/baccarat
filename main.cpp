@@ -345,6 +345,7 @@ int main(){
       hand_result = winner_of_hand(shoe, top_of_deck, count);
       update_shoe_card(shoe_card, idx, hand_result);
       print_winner(hand_result, player_wins, banker_wins, ties);
+      cout << count;
       pay_ai_bets(list_of_ai, hand_result);
       /* these lines of code shows the ai name and the amount of money they have
 	 for(int i = 0; i < 4; i++){
