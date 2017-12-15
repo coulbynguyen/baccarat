@@ -1,6 +1,4 @@
 #include "alwaysbanker.h"
-#include "ai.h"
-#include "functions.h"
 #include <string>
 #include <iostream>
 

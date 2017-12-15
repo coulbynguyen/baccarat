@@ -3,7 +3,7 @@
 #include <string>
 
 using namespace std;
-countBankerHigh(int num){
+countBankerHigh::countBankerHigh(int num){
 	ai_name = "count banker high";
 	capital = num;
 	//bet will be handled in the base class set bet function

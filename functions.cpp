@@ -3,6 +3,15 @@
 #include <stdlib.h>
 #include <time.h>
 #include "ai.h"
+#include "alternate.h"
+#include "alwaysbanker.h"
+#include "alwaysplayer.h"
+#include "copylastwin.h"
+#include "countbanker.h"
+#include "countplayer.h"
+#include "countbankerhigh.h"
+#include "countplayerhigh.h"
+#include "goagainstlast.h"
 
 
 using namespace std;
@@ -38,12 +47,17 @@ void shuffle(int* shoe){
 
 //===================================
 //setting ai bets
-void set_ai_bets(ai** list_of_ai, int* shoe_card, int idx, int count){
-	for(int i = 0; i < 10; i++){
-		list_of_ai[i]->set_bet_type(shoe_card, idx, count);
-	}
-	for(int i = 4; i < 6; i++){
-		list_of_ai[i]->set_bet(0, shoe_card, idx);
+void set_ai_bets(ai*** matrix, int* shoe_card, int idx, int count){
+	for(int i = 0; i < 9; i++){
+		for(int j = 0; j < 8; j++){
+			matrix[i][j]->set_bet_type(shoe_card, idx, count);
+		}
+	} 
+
+	for(int i = 0; i < 9; i++){
+		for(int j = 0; j < 8; j++){
+			matrix[i][j]->set_bet(count, shoe_card, idx, j);
+		}
 	}
 
 }
@@ -51,22 +65,23 @@ void set_ai_bets(ai** list_of_ai, int* shoe_card, int idx, int count){
 
 //=================================
 //Paying out ai bets
-void pay_ai_bets(ai** list_of_ai, int hand_result){
-	for(int i = 0; i < 10; i++){
-		if(list_of_ai[i]->get_bet_type() == hand_result){
-			//ai wins -> add bet to capital
-			list_of_ai[i]->add_to_capital(list_of_ai[i]->get_bet());
-		}
-		else if(hand_result == 2){
-			//tie add 0 to capital
-			list_of_ai[i]->add_to_capital(0);
-		}
-		else{
-			//ai loses -> sub bet from capital
-			list_of_ai[i]->sub_from_capital(list_of_ai[i]->get_bet());
+void pay_ai_bets(ai*** matrix, int hand_result){
+	for(int i = 0; i < 9; i++){
+		for(int j = 0; j < 8; j++){
+			if(matrix[i][j]->get_bet_type() == hand_result){
+				//ai wins -> add bet to capital
+				matrix[i][j]->add_to_capital(matrix[i][j]->get_bet());
+			}
+			else if(hand_result == 2){
+			   //ai ties -> add 0 to capital 
+				matrix[i][j]->add_to_capital(0);
+			}
+			else{
+			   //ai loses -> subtract bet from capital
+				matrix[i][j]->sub_from_capital(matrix[i][j]->get_bet());
+			}
 		}
 	}
-
 }
 
 

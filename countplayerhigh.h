@@ -13,5 +13,5 @@ class countPlayerHigh : public ai{
 	   countPlayerHigh(int);
 	   void set_bet_type(int*, int, int);
 
-}
+};
 #endif

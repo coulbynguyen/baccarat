@@ -4,130 +4,205 @@
 
 using namespace std;
 
-ai::ai(string name){
-	ai_name = name;
-	capital = 1000;
-	bet = 10;
-}
-
 string ai::get_ai_name(){
 	return ai_name;
 }
 
-int ai::count_set_bet_type(string ai_name, int count){
-	if(ai_name == "count banker"){
-		return 1;
-	}
-	if(ai_name == "count player"){
-		return 0;
-	}
-	if(ai_name == "count high banker"){
-		if(count >= 0){
-			return 1;
-		}
-		else{
-			return 0;
-		}
-	}
-	if(ai_name == "count high player"){
-		if(count >= 0){
-			return 0;
-		}
-		else{
-			return 1;
-		}
-	}
+int ai::bet10(){
+	return 10;
 }
 
-int ai::count_set_bet(int count){
-   	if(count >= 6){
-		return 25;
-	}
-   	else if(count >= 3){
-		return 10;
-	}
-	else if(count <= 6){
-		return 25;
-	}
-	else if(count <= 3){
-		return 10;
-	}
-	else{
-		return 0;
-	}
+int ai::bet25(){
+	return 25;
 }
-/*
-void ai::set_bet_type(int* shoe_card, int idx, int count){
-   //if bet = 0 the bet is for the player
-   //   bet = false
-   //if bet = 1 the bet is for the banker
-   //   bet = true
-   //if bet = 2 the result is a tie
-   //	banker_bet = banker_player;
-   if((ai_name == "always banker")||(ai_name == "double up banker")){
-	banker_bet = 1;
-   }
-   else if((ai_name == "always player")||(ai_name == "double up player")){
-	banker_bet = 0;
-   }
-   else if(ai_name == "alternate banker and player"){
-	if(banker_bet == 1){
-		banker_bet = 0;
+
+int ai::doubleup(int local_bet, int* shoe_card, int idx){
+   	if(idx == -1){
+		local_bet = 10;
+		return local_bet;
 	}
-	else{
-		banker_bet = 1;
-	}
-   }
-   else if(ai_name == "copy last win"){
-        if(idx == -1){
-		banker_bet = 1;
+	if(banker_bet == shoe_card[idx]){
+		local_bet = 10;
+		return local_bet;
 	}
 	else if(shoe_card[idx] == 2){
-		banker_bet = 1;
+		local_bet += 0;
+		return local_bet;
 	}
 	else{
-   	   banker_bet = shoe_card[idx];
+		local_bet *= 2;
+		return local_bet;
 	}
-   }
-   else if((ai_name == "count banker")||(ai_name == "count player")||("count high banker")||("count high player")){
-	banker_bet = count_set_bet_type(ai_name, count);
-	bet = count_set_bet(count);
-   }
+}
 
-   if((capital - bet) < 0){
-	bet = capital;
-   }
+int ai::one_three_two_four(int* shoe_card, int idx){
+//	cycle1324 needs to be created under the protected variables
+	if(idx == -1){
+		return 10;
+	}
+	//check this conditional and the one below
+	else if(banker_bet == shoe_card[idx]){
+		if((cycle1324%4) == 0){
+		        cycle1324++;
+			return 10;
+		}
+		else if((cycle1324%4) == 1){
+		        cycle1324++;
+			return 30;
+		}
+		else if((cycle1324%4)==2){
+		        cycle1324++;
+			return 20;
+		}
+		else{
+		        cycle1324++;
+			return 40;
+		}
+	}
+	else if(shoe_card[idx] == 2){
+		//bet does not change
+	}
+	else{
+	   	cycle1324 = 0;
+		return 10;
+	}
+}
+int ai::fibonacci(int* shoe_card, int idx){
+	int fibnum[14] = {1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377};
+	//need to declare fibidx in protected
+	if(capital - fibnum[fibidx] < 0){
+		fibidx = 0;
+		return fibnum[fibidx];
+	}
+	if(idx == -1){
+		fibidx = 0;
+		return fibnum[fibidx];
+	}
+	else{
+		if(banker_bet == shoe_card[idx]){
+			if(fibidx - 2 < 0){
+			   	fibidx = 0;
+				return fibnum[fibidx];
+			}
+			else{
+				fibidx -= 2;
+				return fibnum[fibidx];
+			}
+		}
+		else if(shoe_card[idx] == 2){
+			//do nothing
+		}
+		else{
+			fibidx++;
+			return fibnum[fibidx];
+		}
+	}
 
 }
-*/
+
+int ai::dalembert(int* shoe_card, int idx, int local_bet){
+	if(idx == -1){
+		return local_bet;
+	}
+	else{
+		if(banker_bet == shoe_card[idx]){
+			return local_bet - 1;
+		}
+		else if(shoe_card[idx] == 2){
+			//do nothing
+		}
+		else{
+			return local_bet + 1;
+		}
+	}
+}
+
+int ai::paroli(int* shoe_card, int idx){
+   //paroli cycle needs to be added to protected
+	if(idx == -1){
+	        paroli_cycle = 0;
+		return 10;
+	}
+	else{
+		if(banker_bet == shoe_card[idx]){
+			paroli_cycle++;
+			if((paroli_cycle%3) == 0){
+				return 10;
+			}
+			else if((paroli_cycle%3) == 1){
+				return 20;
+			}
+			else if((paroli_cycle%3) == 2){
+				return 40;
+			}
+
+		}
+		else if(shoe_card[idx] == 2){
+			//do nothing
+		}
+		else{
+			paroli_cycle = 0;
+			return 10;
+		}
+
+	}
+}
+
+int ai::count_bet(int count){
+	if(count > 10){
+		return 25;
+	}
+	else if(count > 5){
+		return 10;
+	}
+	else if(count < -10){
+		return 25;
+	}
+	else if(count < -5){
+		return 10;
+	}
+	else{
+		return 0;
+	}
+}
 
 int ai::get_bet_type(){
 	return banker_bet;
 }
 
-void ai::set_bet(int num, int* shoe_card, int idx){
+void ai::set_bet(int count, int* shoe_card, int idx, int position){
    //most likely this wont be called unless we change the program
    //to dynamic bets
    //bet = num;
-   if(idx == -1){
-	bet = 10;
+   if(position == 0){
+	bet = bet10();
    }
-   else if(shoe_card[idx] == banker_bet){
-	bet = 10;
+   else if(position == 1){
+	bet = bet25();
    }
-   else if(shoe_card[idx] == 2){
-	bet += 0;
+   else if(position == 2){
+	bet = doubleup(bet, shoe_card, idx);
    }
-   else{
-	bet *= 2;
-	if(bet > 300){
-		bet = 300;
-	}
+   else if(position == 3){
+	bet = one_three_two_four(shoe_card, idx);
    }
+   else if(position == 4){
+	bet = fibonacci(shoe_card, idx);
+   }
+   else if(position == 5){
+	bet = dalembert(shoe_card, idx, bet);
+   }
+   else if(position == 6){
+	bet = paroli(shoe_card, idx);
+   }
+   else if(position = 7){
+	bet = count_bet(count);
+   }
+   
    if((capital - bet) < 0){
 	bet = capital;
    }
-
+   
 }
 
 int ai::get_bet(){

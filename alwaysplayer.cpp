@@ -1,6 +1,6 @@
 #include "alwaysplayer.h"
 #include <iostream>
-#include <string
+#include <string>
 using namespace std;
 
 alwaysPlayer::alwaysPlayer(int num){
