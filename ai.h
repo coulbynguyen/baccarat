@@ -38,6 +38,7 @@ class ai{
 	   void sub_from_capital(int); //doesnt need to be redefined in every class
 	   int get_capital(); //doesnt need to be redefined in every class
 	   virtual void output_to_file(int) = 0;
+	   void stop_betting();
 
 
 };

@@ -101,7 +101,12 @@ int ai::fibonacci(int* shoe_card, int idx){
 }
 
 int ai::dalembert(int* shoe_card, int idx, int local_bet){
-	if(idx == -1){
+	if(local_bet <= 10){
+		return 10;
+	}
+
+
+   	if(idx == -1){
 		return local_bet;
 	}
 	else{
@@ -198,7 +203,7 @@ void ai::set_bet(int count, int* shoe_card, int idx, int position){
    else if(position = 7){
 	bet = count_bet(count);
    }
-   
+   bet *= 2; 
    if((capital - bet) <= 0){
 	bet = capital;
    }
@@ -221,4 +226,7 @@ int ai::get_capital(){
 	return capital;
 }
 
+void ai::stop_betting(){
+	bet = 0;
+}
 

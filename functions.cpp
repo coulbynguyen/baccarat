@@ -63,6 +63,23 @@ void set_ai_bets(ai*** matrix, int* shoe_card, int idx, int count){
 }
 //==================================
 
+//================================
+// stop betting if youre ahead
+
+void check_stop(ai*** matrix){
+	for(int i = 0; i < 9; i++){
+		for(int j = 0; j < 8; j++){
+			if(matrix[i][j]->get_capital() >= 600){
+				matrix[i][j]->stop_betting();
+			}
+		}
+	}
+
+}
+
+//===============================
+
+
 //=================================
 //Paying out ai bets
 void pay_ai_bets(ai*** matrix, int hand_result){

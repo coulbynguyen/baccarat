@@ -7,10 +7,10 @@ using namespace std;
 void calculations(int net_gain[72], int total_win_loss[72], fstream& file, int pos){
         int num;
 	file >> num;
-	if(num >= 300){
+	if(num >= 100){
 		total_win_loss[pos] += 1;
 	}
-	net_gain[pos] += (num - 300);
+	net_gain[pos] += (num - 100);
 }
 
 int main(){

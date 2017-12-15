@@ -16,6 +16,7 @@
 #define FUNCTIONS_H
 void shuffle(int*);
 void set_ai_bets(ai***, int*, int, int);
+void check_stop(ai***);
 void pay_ai_bets(ai***, int);
 int compare_the_hands(int, int);
 void adjust_count(int&, int);

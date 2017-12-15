@@ -34,7 +34,7 @@ int main(){
       int player_wins = 0;
       int ties = 0;
       int count = 0;
-      int c = 100;
+      int c = 300;
       shuffle(shoe);
       burn_top_cards(shoe, top_of_deck);
 /*
@@ -62,11 +62,13 @@ int main(){
 
       while(top_of_deck <= red_card){
 	 set_ai_bets(matrix, shoe_card, idx, count);
+	 
+	 check_stop(matrix);
 
 	 hand_result = winner_of_hand(shoe, top_of_deck, count);
 
 	 update_shoe_card(shoe_card, idx, hand_result);
-
+	 
 //	 print_winner(hand_result, player_wins, banker_wins, ties);
 
 	 pay_ai_bets(matrix, hand_result);
