@@ -68,7 +68,7 @@ int ai::one_three_two_four(int* shoe_card, int idx){
 	}
 }
 int ai::fibonacci(int* shoe_card, int idx){
-	int fibnum[14] = {1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377};
+	int fibnum[14] = {10, 10, 20, 30, 50, 80, 130, 210, 340, 550, 890, 1440, 2330, 3770};
 	//need to declare fibidx in protected
 	if(capital - fibnum[fibidx] < 0){
 		fibidx = 0;
