@@ -25,3 +25,39 @@ void goAgainstLast::set_bet_type(int* shoe_card, int idx, int count){
 		}
 	}
 }
+void goAgainstLast::output_to_file(int p){
+        ofstream output;
+	if(p == 0){
+		output.open("a/goagainstlastBET10.txt", ofstream::out | ofstream::app);
+		output << capital << endl;
+	}
+	if(p == 1){
+		output.open("a/goagainstlastBET25.txt", ofstream::out | ofstream::app);
+		output << capital << endl;
+	}
+	if(p == 2){
+		output.open("a/goagainstlastDOUBLEUP.txt", ofstream::out | ofstream::app);
+		output << capital << endl;
+	}
+	if(p == 3){
+		output.open("a/goagainstlast1324.txt", ofstream::out | ofstream::app);
+		output << capital << endl;
+	}
+	if(p == 4){
+		output.open("a/goagainstlastFIBONACCI.txt", ofstream::out | ofstream::app);
+		output << capital << endl;
+	}
+	if(p == 5){
+		output.open("a/goagainstlastDALEMBERT.txt", ofstream::out | ofstream::app);
+		output << capital << endl;
+	}
+	if(p == 6){
+		output.open("a/goagainstlastPAROLI.txt", ofstream::out | ofstream::app);
+		output << capital << endl;
+	}
+	if(p == 7){
+		output.open("a/goagainstlastCOUNTBET.txt", ofstream::out | ofstream::app);
+		output << capital << endl;
+	}
+	output.close();
+}

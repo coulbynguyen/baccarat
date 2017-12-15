@@ -18,7 +18,7 @@ using namespace std;
 //======================================
 //shuffle function put into its own .cpp and .h file
 void shuffle(int* shoe){
-   srand(time(NULL));
+//   srand(time(NULL));
    int card_counts [13] = {};
    for(int z = 0; z < 13; z++){
 	card_counts[z] = 0;

@@ -12,6 +12,7 @@ class copyLastWin : public ai{
 	public:
 	   copyLastWin(int);
 	   void set_bet_type(int*, int, int);
+	   void output_to_file(int);
 
 
 };

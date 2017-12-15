@@ -220,3 +220,5 @@ void ai::sub_from_capital(int num){
 int ai::get_capital(){
 	return capital;
 }
+
+

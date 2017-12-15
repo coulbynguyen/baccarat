@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ class ai{
 	   void add_to_capital(int); //doesnt need to be redefined in every class
 	   void sub_from_capital(int); //doesnt need to be redefined in every class
 	   int get_capital(); //doesnt need to be redefined in every class
-
+	   virtual void output_to_file(int) = 0;
 
 
 };

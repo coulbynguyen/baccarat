@@ -12,6 +12,7 @@ class countBanker : public ai{
 	public:
 	   countBanker(int);
 	   void set_bet_type(int*, int, int);
+	   void output_to_file(int);
 
 };
 
