@@ -29,7 +29,7 @@ int main(){
    int player_wins = 0;
    int ties = 0;
    int count = 0;
-   int c = 1000;
+   int c = 100;
    shuffle(shoe);
    burn_top_cards(shoe, top_of_deck);
 

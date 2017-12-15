@@ -199,7 +199,7 @@ void ai::set_bet(int count, int* shoe_card, int idx, int position){
 	bet = count_bet(count);
    }
    
-   if((capital - bet) < 0){
+   if((capital - bet) <= 0){
 	bet = capital;
    }
    
