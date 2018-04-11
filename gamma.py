@@ -43,8 +43,11 @@ for x in range(5100):
 clf = tree.DecisionTreeClassifier()
 clf.fit(descriptors, labels)
 
-print testlabels
-print "\n"
-print clf.predict(testdescriptors)
+print (testlabels)
+print ("\n")
+print (clf.predict(testdescriptors))
 
-
+import graphviz
+dot_data = tree.export_graphviz(clf, out_file=None, feature_names=descriptornames, class_names=labelnames, filled=True, rounded=True, special_characters=True)
+graph = graphviz.Source(dot_data)
+graph.render("Baccarat")
