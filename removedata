@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm -f results.txt
+rm -f bank_count.txt
+rm -f player_count.txt
+rm -f tie_count.txt
+rm -f reg_count.txt

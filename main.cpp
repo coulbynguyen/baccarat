@@ -21,6 +21,7 @@ int main(){
    int count = 0;
    int prevcount = 0;
    int c = 100;
+   int handnumber = 0;
    
    int prevplayercount = 0;
    int prevbankcount = 0;
@@ -45,14 +46,17 @@ int main(){
 
       update_shoe_card(shoe_card, idx, hand_result);
 
-      print_winner(hand_result, player_wins, banker_wins, ties, prevcount, prevplayercount, prevbankcount, prevtiecount);
+      if(handnumber > 25){
+	 print_winner(hand_result, player_wins, banker_wins, ties, prevcount, prevplayercount, prevbankcount, prevtiecount);
+      }
 
       prevcount = count;
       prevplayercount = playercount;
       prevbankcount = bankcount;
       prevtiecount = tiecount;
+      handnumber++;
    }
-  
+
    cout << "TOTAL PLAYER WINS: " << player_wins << endl;
    cout << "TOTAL BANKER WINS: " << banker_wins << endl;
    cout << "TOTAL TIES: " << ties << endl;
