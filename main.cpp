@@ -46,9 +46,7 @@ int main(){
 
       update_shoe_card(shoe_card, idx, hand_result);
 
-      if(handnumber > 20 && handnumber < 45){
-	 print_winner(hand_result, player_wins, banker_wins, ties, prevcount, prevplayercount, prevbankcount, prevtiecount);
-      }
+      print_winner(hand_result, player_wins, banker_wins, ties, prevcount, prevplayercount, prevbankcount, prevtiecount);
 
       prevcount = count;
       prevplayercount = playercount;
