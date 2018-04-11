@@ -26,14 +26,14 @@ descriptornames = ["Regular Count", "Player Count", "Bank Count", "Tie Count"]
 
 
 
-for x in range(5100):
+for x in range(10000):
    result = int(resultsfile.readline())
    count = int(countfile.readline())
    player = int(playerfile.readline())
    bank = int(bankfile.readline())
    tie = int(tiefile.readline())
    oneset = [count,player,bank,tie]
-   if x < 5000:
+   if x < 9950:
       descriptors.append(oneset)
       labels.append(result)
    else:
@@ -48,6 +48,6 @@ print ("\n")
 print (clf.predict(testdescriptors))
 
 import graphviz
-dot_data = tree.export_graphviz(clf, out_file=None, feature_names=descriptornames, class_names=labelnames, filled=True, rounded=True, special_characters=True)
+dot_data = tree.export_graphviz(clf, out_file=None, feature_names=descriptornames, class_names=labelnames, filled=True, rounded=True, special_characters=True, impurity=False)
 graph = graphviz.Source(dot_data)
 graph.render("Baccarat")
