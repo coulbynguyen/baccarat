@@ -1,31 +1,41 @@
 #!/bin/bash
 
 run
-echo "1"
 sleep 1
 run
-echo "2"
 sleep 1
 run
-echo "3"
 sleep 1
 run
-echo "4"
 sleep 1
 run
-echo "5"
 sleep 1
 run
-echo "6"
 sleep 1
 run
-echo "7"
 sleep 1
 run
-echo "8"
 sleep 1
 run
-echo "9"
 sleep 1
 run
-echo "10 done"
+sleep 1
+run
+sleep 1
+run
+sleep 1
+run
+sleep 1
+run
+sleep 1
+run
+sleep 1
+run
+sleep 1
+run
+sleep 1
+run
+sleep 1
+run
+sleep 1
+run
