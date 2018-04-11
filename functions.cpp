@@ -305,7 +305,7 @@ void burn_top_cards(int* shoe, int& top_of_deck){
 //=============================
 
 //============================
-void streaks_to_file(int last_hand, int streakcount, int streaktype){
+void streaks_to_file(int last_hand, int streakcount, int streaktype, int player_wins, int banker_wins, int ties){
 
    ofstream last_hand_file;
    last_hand_file.open("last_hand.txt", ios::app);
@@ -318,6 +318,29 @@ void streaks_to_file(int last_hand, int streakcount, int streaktype){
    ofstream streaktype_file;
    streaktype_file.open("streaktype_file.txt", ios::app);
    streaktype_file << streaktype << endl;
+
+   ofstream playerwinpercentage_file;
+   playerwinpercentage_file.open("playerwinpercentage_file.txt", ios::app);
+ 
+   
+   ofstream bankwinpercentage_file;
+   bankwinpercentage_file.open("bankwinpercentage_file.txt", ios::app);
+   
+   ofstream tiewinpercentage_file;
+   tiewinpercentage_file.open("tiewinpercentage_file.txt", ios::app);
+   
+   int total;
+   total = player_wins + banker_wins + ties;
+   if(total == 0){
+   	playerwinpercentage_file << 0 << endl;
+	bankwinpercentage_file << 0 << endl;
+	tiewinpercentage_file << 0 << endl;
+   }
+   else{
+      playerwinpercentage_file << (float)player_wins / (float)total << endl;
+      bankwinpercentage_file << (float)banker_wins / (float)total << endl;
+      tiewinpercentage_file << (float)ties / (float)total << endl;
+   }
 }
 
 

@@ -49,7 +49,7 @@ int main(){
 
    while(top_of_deck <= red_card){
 
-      streaks_to_file(last_hand, streakcount, streaktype);
+      streaks_to_file(last_hand, streakcount, streaktype, player_wins, banker_wins, ties);
       
       hand_result = winner_of_hand(shoe, top_of_deck, count, playercount, bankcount, tiecount);
 
