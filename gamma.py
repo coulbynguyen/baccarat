@@ -34,7 +34,7 @@ descriptornames = ["Player Count", "Streak Count", "Streak Type", "Last Hand Res
 
 
 
-for x in range(5550):
+for x in range(11000):
    result = int(resultsfile.readline())
    # count = int(countfile.readline())
    player = int(playerfile.readline())
@@ -45,7 +45,7 @@ for x in range(5550):
    lasthand = int(lasthandfile.readline())
    # oneset = [count,player,bank,tie,lasthand,streaktype,streakcount]
    oneset = [player, streakcount, streaktype, lasthand]
-   if x < 5500:
+   if x < 10000:
       descriptors.append(oneset)
       labels.append(result)
    else:
