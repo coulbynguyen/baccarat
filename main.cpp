@@ -12,8 +12,15 @@ int main(){
    int top_of_deck = 0;
    int* shoe_card = new int[100];
    int shoe_card2[30][50] = {0};
+   
    int idx = -1;
    int hand_result;
+   int last_hand = 1; //bank starts off with the last hand
+
+   int streakcount = 0; //streak count is 0 since there have been no hands played
+   int streaktype = 1; //bank starts off with streak type
+
+
    int red_card = 416 - (rand()%52 + 35);
    int banker_wins = 0;
    int player_wins = 0;
@@ -42,12 +49,18 @@ int main(){
 
    while(top_of_deck <= red_card){
 
+      streaks_to_file(last_hand, streakcount, streaktype);
+      
       hand_result = winner_of_hand(shoe, top_of_deck, count, playercount, bankcount, tiecount);
+
+      update_streak(streakcount, streaktype, hand_result);
 
       update_shoe_card(shoe_card, idx, hand_result);
 
-      print_winner(hand_result, player_wins, banker_wins, ties, prevcount, prevplayercount, prevbankcount, prevtiecount);
+      print_winner(hand_result, player_wins, banker_wins, ties, prevcount, prevplayercount, prevbankcount, prevtiecount); //need to add streakcount streaktype and last_hand
 
+
+      last_hand = hand_result;
       prevcount = count;
       prevplayercount = playercount;
       prevbankcount = bankcount;

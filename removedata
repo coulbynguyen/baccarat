@@ -5,3 +5,6 @@ rm -f bank_count.txt
 rm -f player_count.txt
 rm -f tie_count.txt
 rm -f reg_count.txt
+rm -f streakcount_file.txt
+rm -f streaktype_file.txt
+rm -f last_hand.txt

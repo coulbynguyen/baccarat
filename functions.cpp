@@ -299,7 +299,56 @@ void update_shoe_card(int* shoe_card, int& idx, int result){
 void burn_top_cards(int* shoe, int& top_of_deck){
    int x = shoe[top_of_deck];
    top_of_deck = x+1;
+
+   //if x == 0 then x = 10;
 }
+//=============================
+
+//============================
+void streaks_to_file(int last_hand, int streakcount, int streaktype){
+
+   ofstream last_hand_file;
+   last_hand_file.open("last_hand.txt", ios::app);
+   last_hand_file << last_hand << endl;
+
+   ofstream streakcount_file;
+   streakcount_file.open("streakcount_file.txt", ios::app);
+   streakcount_file << streakcount << endl;
+
+   ofstream streaktype_file;
+   streaktype_file.open("streaktype_file.txt", ios::app);
+   streaktype_file << streaktype << endl;
+}
+
+
+//==========================
+
+
+
+//============================
+void update_streak(int& streakcount, int& streaktype, int hand_result){
+	if(hand_result == streaktype || hand_result == 2){
+		streakcount++;
+	}
+	else if(hand_result == 0 && hand_result != streaktype){
+		streakcount = 0;
+		streaktype = 0; 
+	}
+	else if(hand_result == 1 && hand_result != streaktype){
+		streakcount = 0;
+		streaktype = 1;
+	}
+
+
+}
+
+
+
+
+
+
+
+
 //=============================
 //=============================
 //Print the winner of the round

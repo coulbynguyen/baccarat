@@ -11,6 +11,12 @@ bankfile = open("bank_count.txt", "r")
 
 tiefile = open("tie_count.txt", "r")
 
+streakcountfile = open("streakcount_file.txt", "r")
+
+streaktypefile = open("streaktype_file.txt", "r")
+
+lasthandfile = open("last_hand.txt", "r"
+
 labels = []
 
 testlabels = []
@@ -21,19 +27,22 @@ descriptors = []
 
 testdescriptors = []
 
-descriptornames = ["Regular Count", "Player Count", "Bank Count", "Tie Count"]
+descriptornames = ["Regular Count", "Player Count", "Bank Count", "Tie Count", "Last Hand Result", "Streak Type", "Streak Count"]
 
 
 
 
-for x in range(10000):
+for x in range(5050):
    result = int(resultsfile.readline())
    count = int(countfile.readline())
    player = int(playerfile.readline())
    bank = int(bankfile.readline())
    tie = int(tiefile.readline())
-   oneset = [count,player,bank,tie]
-   if x < 9950:
+   streakcount = int(streakcountfile.readline())
+   streaktype = int(streaktypefile.readline())
+   lasthand = int(lasthandfile.readline())
+   oneset = [count,player,bank,tie,lasthand,streaktype,streakcount]
+   if x < 5000:
       descriptors.append(oneset)
       labels.append(result)
    else:
