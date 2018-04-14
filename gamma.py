@@ -17,6 +17,13 @@ streaktypefile = open("streaktype_file.txt", "r")
 
 lasthandfile = open("last_hand.txt", "r")
 
+playerpercfile = open("playerwinpercentage_file.txt", "r")
+
+bankpercfile = open("bankwinpercentage_file.txt", "r")
+
+tiepercfile = open("tiewinpercentage_file.txt", "r")
+
+
 labels = []
 
 testlabels = []
@@ -27,25 +34,33 @@ descriptors = []
 
 testdescriptors = []
 
+descriptornames = ["Last Hand Result", "Streak Type", "Streak Count", "Player Win Percentage", "Bank Win Percentage", "Tie Win Percentage"]
+# descriptornames = ["Regular Count", "Player Count", "Bank Count", "Tie Count", "Last Hand Result", "Streak Type", "Streak Count", "Player Win Percentage", "Bank Win Percentage", "Tie Win Percentage"]
 # descriptornames = ["Regular Count", "Player Count", "Bank Count", "Tie Count", "Last Hand Result", "Streak Type", "Streak Count"]
-descriptornames = ["Player Count", "Streak Count", "Streak Type", "Last Hand Result"]
+# descriptornames = ["Player Count", "Streak Count", "Streak Type", "Last Hand Result"]
 
 
 
 
 
-for x in range(11000):
+for x in range(5050):
    result = int(resultsfile.readline())
-   # count = int(countfile.readline())
+   count = int(countfile.readline())
    player = int(playerfile.readline())
-   # bank = int(bankfile.readline())
-   # tie = int(tiefile.readline())
+   bank = int(bankfile.readline())
+   tie = int(tiefile.readline())
    streakcount = int(streakcountfile.readline())
    streaktype = int(streaktypefile.readline())
    lasthand = int(lasthandfile.readline())
+   playerperc = float(playerpercfile.readline())
+   bankperc = float(bankpercfile.readline())
+   tieperc = float(tiepercfile.readline())
+   oneset = [lasthand, streaktype, streakcount, playerperc, bankperc, tieperc]
+
+   # oneset = [count, player, bank, tie, lasthand, streaktype, streakcount, playerperc, bankperc, tieperc]
    # oneset = [count,player,bank,tie,lasthand,streaktype,streakcount]
-   oneset = [player, streakcount, streaktype, lasthand]
-   if x < 10000:
+   # oneset = [player, streakcount, streaktype, lasthand]
+   if x < 5000:
       descriptors.append(oneset)
       labels.append(result)
    else:
@@ -67,7 +82,7 @@ print (accuracy_score(testlabels, predictions))
 
 
 # below is the code that creates the graph but right now i need to work on finding out what data is relevant
-# import graphviz
-# dot_data = tree.export_graphviz(clf, out_file=None, feature_names=descriptornames, class_names=labelnames, filled=True, rounded=True, special_characters=True, impurity=False)
-# graph = graphviz.Source(dot_data)
-# graph.render("Baccarat")
+import graphviz
+dot_data = tree.export_graphviz(clf, out_file=None, feature_names=descriptornames, class_names=labelnames, filled=True, rounded=True, special_characters=True, impurity=False)
+graph = graphviz.Source(dot_data)
+graph.render("Baccarat")
