@@ -1,0 +1,22 @@
+#!/bin/bash
+
+python shuffledeck.py
+newrun
+sleep 1
+
+python shuffledeck.py
+newrun
+sleep 1
+
+python shuffledeck.py
+newrun
+sleep 1
+
+python shuffledeck.py
+newrun
+sleep 1
+
+python shuffledeck.py
+newrun
+sleep 1
+

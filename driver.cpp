@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "driverfunctions.h"
+#include <fstream>
 
 using namespace std;
 
@@ -19,14 +20,32 @@ int main(){
 	int* cards_played; // first 3 corespond to player last 3 corespond to banker
 	fill_shoe(shoe);
 	
+	top_of_shoe = shoe[top_of_shoe+1];
+	
+	ofstream labels;
+	labels.open("labels.txt", ios::app);
+
+	ofstream newcount;
+	newcount.open("newcount.txt", ios::app);
+
+
 	while(top_of_shoe < red_card){
 	   	hand_number++;
-	   	//print out count, winner, cards
+		
+		
+		//print out count, winner, cards
+	   	if(hand_number > 1){
+			labels << hand_result << endl;
+			newcount << count << endl;		
+
+		}
+		
 		
 		//deal hands & determine winner & update top_of_shoe
 		cards_played = play_hand(shoe, top_of_shoe, count, hand_result);
 	   	
 		//print out hand and winner of every hand
+	/*
 		cout << "HAND " << hand_number << endl;
 		for(int i = 0; i < 6; i++){
 		   if(cards_played[i] == -1){
@@ -42,6 +61,7 @@ int main(){
 		}
 		cout << "WINNER: " << hand_result << " COUNT: " << count <<  endl;
 		cout << endl;
+	*/
 		//update count, winner
 	}
 	return 0;
