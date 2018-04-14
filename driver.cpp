@@ -28,6 +28,8 @@ int main(){
 	ofstream newcount;
 	newcount.open("newcount.txt", ios::app);
 
+	ofstream handcount;
+	handcount.open("handnumber.txt", ios::app);
 
 	while(top_of_shoe < red_card){
 	   	hand_number++;
@@ -36,7 +38,8 @@ int main(){
 		//print out count, winner, cards
 	   	if(hand_number > 1){
 			labels << hand_result << endl;
-			newcount << count << endl;		
+			newcount << count << endl;
+			handcount << hand_number << endl;		
 
 		}
 		
