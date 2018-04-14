@@ -7,6 +7,8 @@ countfile = open("newcount.txt", "r");
 
 handcount = open("handnumber.txt", "r");
 
+lastwin = open("lasthandwin.txt", "r");
+
 labels = []
 
 testlabels = []
@@ -17,7 +19,7 @@ descriptors = []
 
 testdescriptors = []
 
-descriptornames = ["COUNT", "HAND NUMBER"]
+descriptornames = ["COUNT", "HAND NUMBER", "LAST HAND RESULT"]
 
 
 
@@ -27,7 +29,8 @@ for x in range(6000):
    result = int(resultsfile.readline())
    count = int(countfile.readline())
    handnumber = int(handcount.readline())
-   oneset = [count, handnumber]
+   lasthand = int(lastwin.readline());
+   oneset = [count, handnumber, lasthand]
    if x < 5000:
       descriptors.append(oneset)
       labels.append(result)
@@ -50,7 +53,7 @@ print (accuracy_score(testlabels, predictions))
 
 
 # below is the code that creates the graph but right now i need to work on finding out what data is relevant
-import graphviz
-dot_data = tree.export_graphviz(clf, out_file=None, feature_names=descriptornames, class_names=labelnames, filled=True, rounded=True, special_characters=True, impurity=False)
-graph = graphviz.Source(dot_data)
-graph.render("Baccarat")
+#import graphviz
+#dot_data = tree.export_graphviz(clf, out_file=None, feature_names=descriptornames, class_names=labelnames, filled=True, rounded=True, special_characters=True, impurity=False)
+#graph = graphviz.Source(dot_data)
+#graph.render("Baccarat")
