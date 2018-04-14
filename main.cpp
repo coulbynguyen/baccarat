@@ -33,10 +33,12 @@ int main(){
    int prevplayercount = 0;
    int prevbankcount = 0;
    int prevtiecount = 0;
+   int prevpalacecount = 0;
 
    int playercount = 0;
    int bankcount = 0;
    int tiecount = 0;
+   int palacecount = 0;
    
    shuffle(shoe);
    burn_top_cards(shoe, top_of_deck);
@@ -51,13 +53,13 @@ int main(){
 
       streaks_to_file(last_hand, streakcount, streaktype, player_wins, banker_wins, ties);
       
-      hand_result = winner_of_hand(shoe, top_of_deck, count, playercount, bankcount, tiecount);
+      hand_result = winner_of_hand(shoe, top_of_deck, count, playercount, bankcount, tiecount, palacecount);
 
       update_streak(streakcount, streaktype, hand_result);
 
       update_shoe_card(shoe_card, idx, hand_result);
 
-      print_winner(hand_result, player_wins, banker_wins, ties, prevcount, prevplayercount, prevbankcount, prevtiecount); //need to add streakcount streaktype and last_hand
+      print_winner(hand_result, player_wins, banker_wins, ties, prevcount, prevplayercount, prevbankcount, prevtiecount, prevpalacecount); //need to add streakcount streaktype and last_hand
 
 
       last_hand = hand_result;
@@ -65,6 +67,7 @@ int main(){
       prevplayercount = playercount;
       prevbankcount = bankcount;
       prevtiecount = tiecount;
+      prevpalacecount = palacecount;
       handnumber++;
    }
 

@@ -57,7 +57,7 @@ int compare_the_hands(int player, int banker){
 
 //===============================
 //count the cards
-void adjust_count(int& count, int card, int& playercount, int& bankcount, int& tiecount){
+void adjust_count(int& count, int card, int& playercount, int& bankcount, int& tiecount, int& palacecount){
    if((card >= 1)&&(card <= 6)){
       count += 1;
    }
@@ -119,8 +119,18 @@ void adjust_count(int& count, int card, int& playercount, int& bankcount, int& t
 	tiecount += 4260;
    }
 
-
-
+   if((card == 1) || (card == 2) || (card == 3)){
+	palacecount += 1;
+   }
+   else if(card == 4){
+	palacecount += 2;
+   }
+   else if(card == 5 || (card == 7) || (card = 8)){
+	palacecount -= 1;
+   }
+   else if(card == 6){
+	palacecount -= 2;
+   }
 
 }
 
@@ -130,23 +140,23 @@ void adjust_count(int& count, int card, int& playercount, int& bankcount, int& t
 
 //=================================
 //determining who won the hands
-int winner_of_hand(int* shoe, int& top_of_deck, int& count, int& playercount, int& bankcount, int& tiecount){
+int winner_of_hand(int* shoe, int& top_of_deck, int& count, int& playercount, int& bankcount, int& tiecount, int& palacecount){
    int player = 0;
    int banker = 0;
    player = (player + shoe[top_of_deck])%10;
-   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount);
+   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount, palacecount);
    top_of_deck += 1;
 
    banker = (banker + shoe[top_of_deck])%10;
-   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount);
+   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount, palacecount);
    top_of_deck += 1;
 
    player = (player + shoe[top_of_deck])%10;
-   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount);
+   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount, palacecount);
    top_of_deck += 1;
 
    banker = (banker + shoe[top_of_deck])%10;
-   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount);
+   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount, palacecount);
    top_of_deck += 1;
 
    if((player == 8) || (player == 9) || (banker == 8) || (banker == 9)){
@@ -156,7 +166,7 @@ int winner_of_hand(int* shoe, int& top_of_deck, int& count, int& playercount, in
    else if(((player == 6) || (player == 7)) && (banker <= 5)){
       //banker draws a card
       banker = (banker + shoe[top_of_deck])%10;
-      adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount);
+   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount, palacecount);
       top_of_deck += 1;
       //compare the hands and return the result
       return compare_the_hands(player, banker);
@@ -169,14 +179,14 @@ int winner_of_hand(int* shoe, int& top_of_deck, int& count, int& playercount, in
       //player draws a card
       int p3 = shoe[top_of_deck];
       player = (player + p3)%10;
-      adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount);
+   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount, palacecount);
       top_of_deck += 1;
       top_of_deck += 1;
 
       if(banker <= 2){
 	 //banker draws a card
 	 banker = (banker + shoe[top_of_deck])%10;
-	 adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount);
+   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount, palacecount);
 	 top_of_deck += 1;
 	 //compare the hands and return the result
 	 return compare_the_hands(player, banker);
@@ -184,7 +194,7 @@ int winner_of_hand(int* shoe, int& top_of_deck, int& count, int& playercount, in
       else if((banker == 3) && (p3 != 8)){
 	 //banker draws a card
 	 banker = (banker + shoe[top_of_deck])%10;
-	 adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount);
+   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount, palacecount);
 	 top_of_deck += 1;
 	 //compare the hands and return the result
 	 return compare_the_hands(player, banker);
@@ -196,7 +206,7 @@ int winner_of_hand(int* shoe, int& top_of_deck, int& count, int& playercount, in
       else if((banker == 4) && ((p3 == 2) || (p3 == 3) || (p3 == 4) || (p3 == 5) || (p3 == 6) || (p3 == 7))){
 	 //banker draws a card
 	 banker = (banker + shoe[top_of_deck])%10;
-	 adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount);
+   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount, palacecount);
 	 top_of_deck += 1;
 	 //compare the hands and return the result
 	 return compare_the_hands(player, banker);
@@ -219,7 +229,7 @@ int winner_of_hand(int* shoe, int& top_of_deck, int& count, int& playercount, in
       else if((banker == 6) && ((p3 == 6) || (p3 == 7))){
 	 //banker draws a card
 	 banker = (banker + shoe[top_of_deck])%10;
-	 adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount);
+   adjust_count(count, shoe[top_of_deck], playercount, bankcount, tiecount, palacecount);
 	 top_of_deck += 1;
 	 //compare the hands and return the result
 	 return compare_the_hands(player, banker);
@@ -375,7 +385,7 @@ void update_streak(int& streakcount, int& streaktype, int hand_result){
 //=============================
 //=============================
 //Print the winner of the round
-void print_winner(int result, int& player_wins, int& banker_wins, int& ties, int count, int playercount, int bankcount, int tiecount){
+void print_winner(int result, int& player_wins, int& banker_wins, int& ties, int count, int playercount, int bankcount, int tiecount, int palacecount){
    if(result == 0){
       //   cout << "PLAYER WINS" << endl;
       player_wins += 1;
@@ -407,4 +417,8 @@ void print_winner(int result, int& player_wins, int& banker_wins, int& ties, int
    ofstream tie_count;
    tie_count.open("tie_count.txt", ios::app);
    tie_count << tiecount << endl;
+
+   ofstream palace_count;
+   palace_count.open("palace_count.txt", ios::app);
+   palace_count << palacecount << endl;
 }
