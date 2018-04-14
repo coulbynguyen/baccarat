@@ -19,7 +19,8 @@ descriptors = []
 
 testdescriptors = []
 
-descriptornames = ["COUNT", "HAND NUMBER", "LAST HAND RESULT"]
+#descriptornames = ["COUNT", "HAND NUMBER", "LAST HAND RESULT"]
+descriptornames = ["COUNT"]
 
 
 
@@ -28,9 +29,10 @@ descriptornames = ["COUNT", "HAND NUMBER", "LAST HAND RESULT"]
 for x in range(6000):
    result = int(resultsfile.readline())
    count = int(countfile.readline())
-   handnumber = int(handcount.readline())
-   lasthand = int(lastwin.readline());
-   oneset = [count, handnumber, lasthand]
+   #handnumber = int(handcount.readline())
+   #lasthand = int(lastwin.readline());
+   #oneset = [count, handnumber, lasthand]
+   oneset = [count];
    if x < 5000:
       descriptors.append(oneset)
       labels.append(result)

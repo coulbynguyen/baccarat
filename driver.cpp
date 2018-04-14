@@ -43,7 +43,7 @@ int main(){
 		
 		
 		//print out count, winner, cards
-	   	if(hand_number > 1){
+	   	if((hand_number > 20)&&(hand_number < 50)){
 			lasthand << last_hand << endl;
 		   	newcount << count << endl;
 			handcount << hand_number << endl;		
@@ -54,7 +54,7 @@ int main(){
 		//deal hands & determine winner & update top_of_shoe
 		cards_played = play_hand(shoe, top_of_shoe, count, hand_result);
 	   	
-		if(hand_number > 1){
+	   	if((hand_number > 20)&&(hand_number < 50)){
 			labels << hand_result << endl;
 		}
 		
