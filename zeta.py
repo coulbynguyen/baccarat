@@ -41,9 +41,9 @@ for x in range(10000):
    handnumber = int(handcount.readline())
    lasthand = int(lastwin.readline());
    streakcount = int(streakcountfile.readline())
-   bank10 = int(banklast10.readline())
-   bank20 = int(banklast20.readline())
-   bank30 = int(banklast30.readline())
+   bank10 = float(banklast10.readline())
+   bank20 = float(banklast20.readline())
+   bank30 = float(banklast30.readline())
    # oneset = [count, handnumber, lasthand, streakcount]
    # oneset = [count];
    oneset = [streakcount, bank10, bank20, bank30]
