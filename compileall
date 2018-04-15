@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -f newrun
+removedata
+g++ driver.cpp driverfunctions.cpp -o newrun

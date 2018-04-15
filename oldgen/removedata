@@ -1,0 +1,14 @@
+#!/bin/bash
+
+rm -f results.txt
+rm -f bank_count.txt
+rm -f player_count.txt
+rm -f tie_count.txt
+rm -f reg_count.txt
+rm -f streakcount_file.txt
+rm -f streaktype_file.txt
+rm -f last_hand.txt
+rm -f playerwinpercentage_file.txt
+rm -f bankwinpercentage_file.txt
+rm -f tiewinpercentage_file.txt
+rm -f palace_count.txt
