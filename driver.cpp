@@ -47,9 +47,10 @@ int main(){
 
 
 		//print out count, winner, cards
-	   	if((hand_number > 20)&&(hand_number < 50)){
+	   	//if((hand_number > 20)&&(hand_number < 50)){
+		if(hand_number > 1){
 				lasthand << last_hand << endl;
-		  	newcount << count << endl;
+			  	newcount << count << endl;
 				handcount << hand_number << endl;
 				streakcount << streak_count << endl;
 			}
@@ -58,35 +59,40 @@ int main(){
 		//deal hands & determine winner & update top_of_shoe
 		cards_played = play_hand(shoe, top_of_shoe, count, hand_result);
 
-	   	if((hand_number > 20)&&(hand_number < 50)){
-				labels << hand_result << endl;
-			}
-			if(hand_number > 1){
-				if(last_hand == hand_result){
-					streak_count++;
-				}
-			}
+		//if((hand_number > 20)&&(hand_number < 50)){
+		if(hand_number > 1){
+		   labels << hand_result << endl;
+		}
+
+		if(hand_number > 1){
+		   if(last_hand == hand_result){
+		      streak_count++;
+		   }
+		   else{
+		      streak_count = 0;
+		   }
+		}
 
 		last_hand = hand_result;
 		//print out hand and winner of every hand
-	/*
-		cout << "HAND " << hand_number << endl;
-		for(int i = 0; i < 6; i++){
+		/*
+		   cout << "HAND " << hand_number << endl;
+		   for(int i = 0; i < 6; i++){
 		   if(cards_played[i] == -1){
-		      cout << " ";
+		   cout << " ";
 		   }
 		   else{
-		      cout << cards_played[i] << " ";
+		   cout << cards_played[i] << " ";
 		   }
 
 		   if(i == 2){
-			cout << "|| ";
+		   cout << "|| ";
 		   }
-		}
-		cout << "WINNER: " << hand_result << " COUNT: " << count <<  endl;
-		cout << endl;
-	*/
+		   }
+		   cout << "WINNER: " << hand_result << " COUNT: " << count <<  endl;
+		   cout << endl;
 		//update count, winner
+		*/
 	}
 	return 0;
-}
+	}
