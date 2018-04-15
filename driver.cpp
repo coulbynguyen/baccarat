@@ -9,23 +9,24 @@ using namespace std;
 
 int main(){
 	srand(time(NULL));
-   
+
    	int shoe[416] = {};
 	int top_of_shoe = 0; //this number needs to change based on the first card
 	int red_card = 416 - (rand()%52+52);
 	int count = 0;
 	int hand_number = 0;
+	int streak_count = 0;
 
 
-	int last_hand = -1;       
+	int last_hand = -1;
 	int hand_result = -1; // -1 no hand has played yet // 0 = bank win // 1 = player win // 2 = tie
 	int* cards_played; // first 3 corespond to player last 3 corespond to banker
-	
-	
+
+
 	fill_shoe(shoe);
-	
+
 	top_of_shoe = shoe[top_of_shoe+1];
-	
+
 	ofstream labels;
 	labels.open("labels.txt", ios::app);
 
@@ -37,27 +38,35 @@ int main(){
 
 	ofstream lasthand;
 	lasthand.open("lasthandwin.txt", ios::app);
-	
+
+	ofstream streakcount;
+	streakcount.open("streakcount.txt", ios::app);
+
 	while(top_of_shoe < red_card){
 	   	hand_number++;
-		
-		
+
+
 		//print out count, winner, cards
 	   	if((hand_number > 20)&&(hand_number < 50)){
-			lasthand << last_hand << endl;
-		   	newcount << count << endl;
-			handcount << hand_number << endl;		
+				lasthand << last_hand << endl;
+		  	newcount << count << endl;
+				handcount << hand_number << endl;
+				streakcount << streak_count << endl;
+			}
 
-		}
-		
-		
+
 		//deal hands & determine winner & update top_of_shoe
 		cards_played = play_hand(shoe, top_of_shoe, count, hand_result);
-	   	
+
 	   	if((hand_number > 20)&&(hand_number < 50)){
-			labels << hand_result << endl;
-		}
-		
+				labels << hand_result << endl;
+			}
+			if(hand_number > 1){
+				if(last_hand == hand_result){
+					streak_count++;
+				}
+			}
+
 		last_hand = hand_result;
 		//print out hand and winner of every hand
 	/*
