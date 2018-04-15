@@ -6,3 +6,6 @@ rm -f lasthandwin.txt
 rm -f newcount.txt 
 rm -f streakcount.txt 
 rm -f featuretable.txt
+rm -f sum10.txt
+rm -f sum20.txt
+rm -f sum30.txt

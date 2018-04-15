@@ -2,4 +2,5 @@
 
 rm -f newrun
 removedata
+python shuffledeck.py
 g++ driver.cpp driverfunctions.cpp -o newrun

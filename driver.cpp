@@ -52,7 +52,16 @@ int main(){
 
    ofstream featuretable;
    featuretable.open("featuretable.txt", ios::app);
-   
+  
+   ofstream sum10file;
+   sum10file.open("sum10.txt", ios::app);
+
+   ofstream sum20file;
+   sum20file.open("sum20.txt", ios::app);
+
+   ofstream sum30file;
+   sum30file.open("sum30.txt", ios::app);
+
    featuretable << "The Way To Read This is A      A      A      A    -> B" << endl;
    featuretable << "                        B      B      B      B    -> C" << endl;
    featuretable << "this means that the 4 data descriptors are from the previous hands and are used to imply the C and does not include the C in their tallies" << endl;
@@ -71,7 +80,7 @@ int main(){
 	 lasthand << last_hand << endl;
 	 newcount << count << endl;
 	 handcount << hand_number << endl;
-	 streakcount << streak_count << endl;
+	 //streakcount << streak_count << endl;
       }
 
 
@@ -129,6 +138,11 @@ int main(){
 
 
       featuretable << setw(12) << streak_count << setw(12) << sum10 << setw(12) << sum20 << setw(12) << sum30 << setw(12) << hand_result  << endl;
+      streakcount << streak_count << endl;
+      sum10file << sum10 << endl;
+      sum20file << sum20 << endl;
+      sum30file << sum30 << endl;
+
 
 
       if(last_hand == hand_result){
