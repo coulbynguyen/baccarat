@@ -17,9 +17,9 @@ int main(){
    int hand_number = 0;
    int streak_count = 0;
    
-   int sum10 = 0;
-   int sum20 = 0;
-   int sum30 = 0;
+   float sum10 = 0;
+   float sum20 = 0;
+   float sum30 = 0;
 
    int last_hand = -1;
    int hand_result = -1; // -1 no hand has played yet // 0 = bank win // 1 = player win // 2 = tie
@@ -96,7 +96,14 @@ int main(){
       for(int idx = 0; idx < 10; idx++){
 	 sum10 += bank_last10[idx];
       }
-      
+      //gets the previous sum before adding in the results of the hand that just happened
+      if(hand_number <= 10){
+	 sum10 = (float)sum10 / (float)hand_number;
+      }
+      else{
+	 sum10 = (float)sum10 / 10;
+      }
+
       for(int idx = 9; idx > 0; idx--){
 	 bank_last10[idx] = bank_last10[idx-1];
       }
@@ -110,7 +117,14 @@ int main(){
       for(int idx = 0; idx < 20; idx++){
 	 sum20 += bank_last20[idx];
       }
-      
+      //gets the previous sum before adding in the results of the hand that just happened
+      if(hand_number <= 20){
+	 sum20 = (float)sum20 / (float)hand_number;
+      }
+      else{
+	 sum20 = (float)sum20 / 20;
+      }
+
       for(int idx = 19; idx > 0; idx--){
 	 bank_last20[idx] = bank_last20[idx-1];
       }
@@ -121,11 +135,17 @@ int main(){
 	 bank_last20[0] = 0;
       }
 
-
       for(int idx = 0; idx < 30; idx++){
 	 sum30 += bank_last30[idx];
       }
-      
+      //gets the previous sum before adding in the results of the hand that just happened
+      if(hand_number <= 30){
+	 sum30 = (float)sum30 / (float)hand_number;
+      }
+      else{
+	 sum30 = (float)sum30 / 30;
+      }
+
       for(int idx = 29; idx > 0; idx--){
 	 bank_last30[idx] = bank_last30[idx-1];
       }
