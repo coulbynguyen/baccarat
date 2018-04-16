@@ -1,5 +1,9 @@
 #include "driverfunctions.h"
 #include <fstream>
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <iomanip>
 
 using namespace std;
 
@@ -14,320 +18,379 @@ void fill_shoe(int shoe[416]){
 	}
 }
 
+void sixtrackheader(){
+	ofstream sixtrackfeature;
+	sixtrackfeature.open("sixtrackfeatures.txt");
+
+	sixtrackfeature << setw(16) << "SIDESTREAK" << setw(16) << "PLAYER ROW PERC" << setw(16) << "BANK ROW PERC" << endl;
+
+}
+
+void sixtrackdata(int sixtrack[6][14], int row, int col){
+   	ofstream sixtrackfeature;
+	sixtrackfeature.open("sixtrackfeatures.txt", ios::app);
+
+	ofstream playerrowfile;
+	playerrowfile.open("playerrowfile.txt", ios::app);
+
+	ofstream bankrowfile;
+	bankrowfile.open("bankrowfile.txt", ios::app);
+
+	ofstream sidestreakfile;
+	sidestreakfile.open("sidestreakfile.txt", ios::app);
+
+   	float playerrowsum = 0;
+	float bankrowsum = 0;
+	int sidestreak = 1;
+	int num_of_cols = 0;
+	for(int i = 0; i <= col; i++){
+		if(sixtrack[row][i] == 0){
+		   	//the number of banks for that row should be increased by 1 if bank was found in that row
+			bankrowsum += 1;
+		}
+		else if(sixtrack[row][i] == 1){
+		   	//the number of players for that row should be increased by 1 if player was found in that row
+			playerrowsum += 1;
+		}
+		
+		if(i > 0){
+			if(sixtrack[row][i] == sixtrack[row][i-1]){
+			   	//if it was equal as the last column in the same row continue the streak
+				sidestreak++;
+			}
+			else{
+			   	//reset streak since it has was not continuous
+				sidestreak = 1;
+			}
+		}
+
+		num_of_cols++;
+	}
+
+	playerrowsum /= (float)num_of_cols;
+	bankrowsum /= (float)num_of_cols;
+
+	sixtrackfeature << setw(16) << sidestreak << setw(16) << playerrowsum << setw(16) << bankrowsum << endl;
+	playerrowfile << playerrowsum << endl;
+	bankrowfile << bankrowsum << endl;
+	sidestreakfile << sidestreak << endl;
+}
+
+
 void adjustcount(int card, int& count){
-   /*
-	if((card == 1) || (card == 2) || (card == 3)){
-		count += 1;
-	}	   
-	else if(card == 4){
-		count += 2;	
-	}
-	else if((card == 5) || (card == 7) || (card == 8)){
-		count -= 1;
-	}
-	else if(card == 6){
-		count -= 2;
-	}
-	*/
-   if(card == 10){
-	count += 188;
-   }
-   else if(card == 1){
-	count += 440;
-   }
-   else if(card == 2){
-	count += 522;
-   }
-   else if(card == 3){
-	count += 649;
-   }
+   if((card == 1) || (card == 2) || (card == 3)){
+      count += 1;
+   }	   
    else if(card == 4){
-	count += 1157;
+      count += 2;	
    }
-   else if(card == 5){
-	count -= 827;
+   else if((card == 5) || (card == 7) || (card == 8)){
+      count -= 1;
    }
    else if(card == 6){
-	count -=1132;
+      count -= 2;
    }
-   else if(card == 7){
-	count -= 827;
-   }
-   else if(card == 8){
-	count -= 502;
-   }
-   else if(card == 9){
-	count -= 231;
-   }
+   /*
+      if(card == 10){
+      count += 188;
+      }
+      else if(card == 1){
+      count += 440;
+      }
+      else if(card == 2){
+      count += 522;
+      }
+      else if(card == 3){
+      count += 649;
+      }
+      else if(card == 4){
+      count += 1157;
+      }
+      else if(card == 5){
+      count -= 827;
+      }
+      else if(card == 6){
+      count -=1132;
+      }
+      else if(card == 7){
+      count -= 827;
+      }
+      else if(card == 8){
+      count -= 502;
+      }
+      else if(card == 9){
+      count -= 231;
+      }
+      */
 
 }
 
 
 int winner(int bank, int player){
-	if(bank > player){
-		//bank wins bank == 0 signifier
-		return 0;
-	}
-	else if(bank < player){
-		//player wins player == 1 signifier
-		return 1;
-	}
-	else if(bank == player){
-		//tie || tie == 2 signifier
-		return 2;
-	}
+   if(bank > player){
+      //bank wins bank == 0 signifier
+      return 0;
+   }
+   else if(bank < player){
+      //player wins player == 1 signifier
+      return 1;
+   }
+   else if(bank == player){
+      //tie || tie == 2 signifier
+      return 2;
+   }
 }
 
 int* play_hand(int shoe[416], int& top_of_shoe, int& count, int& hand_result){
-	int player = 0;
-	int bank = 0;
-	int* cards_played = new int[6]; //negative one means that card was not used
-    
-	for(int i = 0; i < 6; i++){
-		cards_played[i] = -1;
-	}
+   int player = 0;
+   int bank = 0;
+   int* cards_played = new int[6]; //negative one means that card was not used
 
-	//player gets first card -- its first card
-	player += shoe[top_of_shoe];
-	
-	//need to adjust the count after every "draw"
-	adjustcount(shoe[top_of_shoe], count);
-	
-	//puts that in the 1st slot of cards played
-	cards_played[0] = shoe[top_of_shoe];
-	
-	//top_of_shoe increments by one
-	top_of_shoe++;
-	
-	
-	
-	//bank gets second card -- its first card
-	bank += shoe[top_of_shoe];
-	
-	//need to adjust the count after every "draw"
-	adjustcount(shoe[top_of_shoe], count);
-	
-	//puts that in the 4th slot of cards played because player can have max 3 cards
-	cards_played[3] = shoe[top_of_shoe];
-	
-	//top_of_shoe increments by one
-	top_of_shoe++;
+   for(int i = 0; i < 6; i++){
+      cards_played[i] = -1;
+   }
 
-	
-	
-	//player gets third card -- its second card
-	player += shoe[top_of_shoe];
-	
-	//need to adjust the count after every "draw"
-	adjustcount(shoe[top_of_shoe], count);
-	
-	//puts that in the 2nd slot of cards played because this is player 2nd card
-	cards_played[1] = shoe[top_of_shoe];
-	
-	//top_of_shoe increments by one
-	top_of_shoe++;
+   //player gets first card -- its first card
+   player += shoe[top_of_shoe];
+
+   //need to adjust the count after every "draw"
+   adjustcount(shoe[top_of_shoe], count);
+
+   //puts that in the 1st slot of cards played
+   cards_played[0] = shoe[top_of_shoe];
+
+   //top_of_shoe increments by one
+   top_of_shoe++;
 
 
 
-	//bank gets fourth card -- its second card
-	bank += shoe[top_of_shoe];
+   //bank gets second card -- its first card
+   bank += shoe[top_of_shoe];
 
-	//need to adjust the count after every "draw"
-	adjustcount(shoe[top_of_shoe], count);
+   //need to adjust the count after every "draw"
+   adjustcount(shoe[top_of_shoe], count);
 
-	//puts that in the 5th slot of cards played because this is banks 2nd card
-	cards_played[4] = shoe[top_of_shoe];
+   //puts that in the 4th slot of cards played because player can have max 3 cards
+   cards_played[3] = shoe[top_of_shoe];
 
-	//top_of_shoe increments by one
-	top_of_shoe++;
+   //top_of_shoe increments by one
+   top_of_shoe++;
 
 
 
-	// to get baccarat score, number mod 10;
-	player %= 10;
-	bank %= 10;
+   //player gets third card -- its second card
+   player += shoe[top_of_shoe];
 
-	if((player == 8) || (player == 9) || (bank == 8) || (bank == 9)){
-	   //naturals no other cards are drawn
-	   hand_result = winner(bank, player);
-	   return cards_played;
-	}
-	else if(((player == 6) || (player == 7)) && (bank <= 5)){
-	   //player hands stands on 6 and 7
-	   //bank has to draw when their total is 6 or below
+   //need to adjust the count after every "draw"
+   adjustcount(shoe[top_of_shoe], count);
 
-	   //bank gets fifth card -- its third card
-	   bank += shoe[top_of_shoe];
+   //puts that in the 2nd slot of cards played because this is player 2nd card
+   cards_played[1] = shoe[top_of_shoe];
 
-	   //need to adjust the count after every "draw"
-	   adjustcount(shoe[top_of_shoe], count);
+   //top_of_shoe increments by one
+   top_of_shoe++;
 
-	   //need to get the baccarat value of banker so mod it by 10
-	   bank %= 10;
 
-	   //puts that in the 6th slot of cards played because this is bank 3rd card
-	   cards_played[5] = shoe[top_of_shoe];
 
-	   //top_of_shoe increments by one
-	   top_of_shoe++;
+   //bank gets fourth card -- its second card
+   bank += shoe[top_of_shoe];
 
-	   //calls a function to tell who wins or if tie
-	   hand_result = winner(bank, player);
-	   return cards_played;
-	}
-	else if(((player == 6) || (player == 7)) && (bank > 5)){
-	   //if player = 6 or 7 and bank equals 6 or 7 just determine who wins
+   //need to adjust the count after every "draw"
+   adjustcount(shoe[top_of_shoe], count);
 
-	   //calls a function to tell who wins or if tie
-	   hand_result = winner(bank,player);
-	   return cards_played;
-	}
-	else if(player < 6){
-	   //if the players baccarat total is less than 6 = {0, 1, 2, 3, 4, 5}
-	   //player has to draw
+   //puts that in the 5th slot of cards played because this is banks 2nd card
+   cards_played[4] = shoe[top_of_shoe];
 
-	   //player gets 5th card -- its third card
-	   player += shoe[top_of_shoe];
+   //top_of_shoe increments by one
+   top_of_shoe++;
 
-	   //need to adjust the count after every "draw"
-	   adjustcount(shoe[top_of_shoe], count);
 
-	   //need to store that third card as bankers value is dependent on it
-	   int player_third_card = shoe[top_of_shoe];
 
-	   //need to get the baccarat value of banker so mod it by 10
-	   player %= 10;
+   // to get baccarat score, number mod 10;
+   player %= 10;
+   bank %= 10;
 
-	   //puts that in the 3rd slot of cards played because this is player 3rd card
-	   cards_played[2] = shoe[top_of_shoe];
+   if((player == 8) || (player == 9) || (bank == 8) || (bank == 9)){
+      //naturals no other cards are drawn
+      hand_result = winner(bank, player);
+      return cards_played;
+   }
+   else if(((player == 6) || (player == 7)) && (bank <= 5)){
+      //player hands stands on 6 and 7
+      //bank has to draw when their total is 6 or below
 
-	   //top_of_shoe increments by one
-	   top_of_shoe++;
+      //bank gets fifth card -- its third card
+      bank += shoe[top_of_shoe];
 
-	   if(bank <= 2){
-	      //bank has to draw if their total is less than 2
+      //need to adjust the count after every "draw"
+      adjustcount(shoe[top_of_shoe], count);
 
-	      //bank gets 6th card -- its third card
-	      bank += shoe[top_of_shoe];
+      //need to get the baccarat value of banker so mod it by 10
+      bank %= 10;
 
-	      //need to adjust the count after every "draw"
-	      adjustcount(shoe[top_of_shoe], count);
+      //puts that in the 6th slot of cards played because this is bank 3rd card
+      cards_played[5] = shoe[top_of_shoe];
 
-	      //need to get the baccarat value of banker so mod it by 10
-	      bank %= 10;
+      //top_of_shoe increments by one
+      top_of_shoe++;
 
-	      //put that in the 6th slot of cards played because this is bank 3rd card
-	      cards_played[5] = shoe[top_of_shoe];
+      //calls a function to tell who wins or if tie
+      hand_result = winner(bank, player);
+      return cards_played;
+   }
+   else if(((player == 6) || (player == 7)) && (bank > 5)){
+      //if player = 6 or 7 and bank equals 6 or 7 just determine who wins
 
-	      //top_of_shoe increments by one
-	      top_of_shoe++;
+      //calls a function to tell who wins or if tie
+      hand_result = winner(bank,player);
+      return cards_played;
+   }
+   else if(player < 6){
+      //if the players baccarat total is less than 6 = {0, 1, 2, 3, 4, 5}
+      //player has to draw
 
-	      //calls a function to tell who wins or if tie
-	      hand_result = winner(bank, player);
-	      return cards_played;
-	   }
-	   else if((bank == 3)&&(player_third_card != 8)){
-	      //if the bank totals 3 and the players 3rd card IS NOT an 8
+      //player gets 5th card -- its third card
+      player += shoe[top_of_shoe];
 
-	      //bank gets 6th card -- its third card
-	      bank += shoe[top_of_shoe];
+      //need to adjust the count after every "draw"
+      adjustcount(shoe[top_of_shoe], count);
 
-	      //need to adjust the count after every "draw"
-	      adjustcount(shoe[top_of_shoe], count);
+      //need to store that third card as bankers value is dependent on it
+      int player_third_card = shoe[top_of_shoe];
 
-	      //need to get the baccarat value of banker so mod it by 10
-	      bank %= 10;
+      //need to get the baccarat value of banker so mod it by 10
+      player %= 10;
 
-	      //put that in the 6th slot of cards played because this is bank 3rd card
-	      cards_played[5] = shoe[top_of_shoe];
+      //puts that in the 3rd slot of cards played because this is player 3rd card
+      cards_played[2] = shoe[top_of_shoe];
 
-	      //top_of_shoe increments by one;
-	      top_of_shoe++;
+      //top_of_shoe increments by one
+      top_of_shoe++;
 
-	      //calls a funciton to tell who wins or if tie
-	      hand_result = winner(bank, player);
-	      return cards_played;
-	   }
-	   else if((bank == 4)&&((player_third_card != 1)&&(player_third_card != 8)&&(player_third_card != 9)&&(player_third_card != 10))){
-	      //if the bank totals 4 and the players 3rd card IS NOT 1 8 9 or 10
+      if(bank <= 2){
+	 //bank has to draw if their total is less than 2
 
-	      //bank gets 6th card -- its third card
-	      bank += shoe[top_of_shoe];
+	 //bank gets 6th card -- its third card
+	 bank += shoe[top_of_shoe];
 
-	      //need to adjust the count after every "draw"
-	      adjustcount(shoe[top_of_shoe], count);
+	 //need to adjust the count after every "draw"
+	 adjustcount(shoe[top_of_shoe], count);
 
-	      //need to get the baccarat value of banker so mod it by 10
-	      bank %= 10;
+	 //need to get the baccarat value of banker so mod it by 10
+	 bank %= 10;
 
-	      //put that in the 6th slot of cards played because this is bank 3rd card
-	      cards_played[5] = shoe[top_of_shoe];
+	 //put that in the 6th slot of cards played because this is bank 3rd card
+	 cards_played[5] = shoe[top_of_shoe];
 
-	      //top_of_shoe increments by one;
-	      top_of_shoe++;
+	 //top_of_shoe increments by one
+	 top_of_shoe++;
 
-	      //calls a function to tell who wins or if tie
-	      hand_result = winner(bank, player);
-	      return cards_played;
-	   }
-	   else if((bank == 5)&&((player_third_card == 4)||(player_third_card == 5)||(player_third_card == 6)||(player_third_card == 7))){
-	      //if the bank totals 5 and the player 3rd card IS either a 4 5 6 or 7
+	 //calls a function to tell who wins or if tie
+	 hand_result = winner(bank, player);
+	 return cards_played;
+      }
+      else if((bank == 3)&&(player_third_card != 8)){
+	 //if the bank totals 3 and the players 3rd card IS NOT an 8
 
-	      //bank gets 6th card -- its third card
-	      bank += shoe[top_of_shoe];
+	 //bank gets 6th card -- its third card
+	 bank += shoe[top_of_shoe];
 
-	      //need to adjust the count after every "draw"
-	      adjustcount(shoe[top_of_shoe], count);
+	 //need to adjust the count after every "draw"
+	 adjustcount(shoe[top_of_shoe], count);
 
-	      //need to get the baccarat value of banker so mod it by 10;
-	      bank %= 10;
+	 //need to get the baccarat value of banker so mod it by 10
+	 bank %= 10;
 
-	      //put that in the 6th slot of cards played because this is bank 3rd card
-	      cards_played[5] = shoe[top_of_shoe];
+	 //put that in the 6th slot of cards played because this is bank 3rd card
+	 cards_played[5] = shoe[top_of_shoe];
 
-	      //top_of_shoe increments by one;
-	      top_of_shoe++;
+	 //top_of_shoe increments by one;
+	 top_of_shoe++;
 
-	      //calls a function to tell who wins or if tie
-	      hand_result = winner(bank, player);
-	      return cards_played;
-	   }
-	   else if((bank == 6)&&((player_third_card == 6)||(player_third_card == 7))){
-	      //if the bank totals 6 and the player 4rd card IS either a 6 or 7
+	 //calls a funciton to tell who wins or if tie
+	 hand_result = winner(bank, player);
+	 return cards_played;
+      }
+      else if((bank == 4)&&((player_third_card != 1)&&(player_third_card != 8)&&(player_third_card != 9)&&(player_third_card != 10))){
+	 //if the bank totals 4 and the players 3rd card IS NOT 1 8 9 or 10
 
-	      //bank gets 6th card -- its third card
-	      bank += shoe[top_of_shoe];
+	 //bank gets 6th card -- its third card
+	 bank += shoe[top_of_shoe];
 
-	      //need to adjust the count after every "draw"
-	      adjustcount(shoe[top_of_shoe], count);
+	 //need to adjust the count after every "draw"
+	 adjustcount(shoe[top_of_shoe], count);
 
-	      //needs to get the baccarat value of banker so mod it by 10;
-	      bank %= 10;
+	 //need to get the baccarat value of banker so mod it by 10
+	 bank %= 10;
 
-	      //put that in the 6th slot of cards played because this is bank 3rd card
-	      cards_played[5] = shoe[top_of_shoe];
+	 //put that in the 6th slot of cards played because this is bank 3rd card
+	 cards_played[5] = shoe[top_of_shoe];
 
-	      //top_of_shoe increments by one;
-	      top_of_shoe++;
+	 //top_of_shoe increments by one;
+	 top_of_shoe++;
 
-	      //calls a function to tell who wins or if tie
-	      hand_result = winner(bank, player);
-	      return cards_played;
-	   }
-	   else if(bank == 7){
-	      //if the bank totals 7 it doesnt draw a card ever
+	 //calls a function to tell who wins or if tie
+	 hand_result = winner(bank, player);
+	 return cards_played;
+      }
+      else if((bank == 5)&&((player_third_card == 4)||(player_third_card == 5)||(player_third_card == 6)||(player_third_card == 7))){
+	 //if the bank totals 5 and the player 3rd card IS either a 4 5 6 or 7
 
-	      //calls a function to tell who wins or if tie
-	      hand_result = winner(bank, player);
-	      return cards_played;
+	 //bank gets 6th card -- its third card
+	 bank += shoe[top_of_shoe];
 
-	   }
-	   else{
-	      //the cases where the banker doesnt draw a card needs to be evaluated
-	      hand_result = winner(bank, player);
-	      return cards_played;
-	   }
-	}
+	 //need to adjust the count after every "draw"
+	 adjustcount(shoe[top_of_shoe], count);
+
+	 //need to get the baccarat value of banker so mod it by 10;
+	 bank %= 10;
+
+	 //put that in the 6th slot of cards played because this is bank 3rd card
+	 cards_played[5] = shoe[top_of_shoe];
+
+	 //top_of_shoe increments by one;
+	 top_of_shoe++;
+
+	 //calls a function to tell who wins or if tie
+	 hand_result = winner(bank, player);
+	 return cards_played;
+      }
+      else if((bank == 6)&&((player_third_card == 6)||(player_third_card == 7))){
+	 //if the bank totals 6 and the player 4rd card IS either a 6 or 7
+
+	 //bank gets 6th card -- its third card
+	 bank += shoe[top_of_shoe];
+
+	 //need to adjust the count after every "draw"
+	 adjustcount(shoe[top_of_shoe], count);
+
+	 //needs to get the baccarat value of banker so mod it by 10;
+	 bank %= 10;
+
+	 //put that in the 6th slot of cards played because this is bank 3rd card
+	 cards_played[5] = shoe[top_of_shoe];
+
+	 //top_of_shoe increments by one;
+	 top_of_shoe++;
+
+	 //calls a function to tell who wins or if tie
+	 hand_result = winner(bank, player);
+	 return cards_played;
+      }
+      else if(bank == 7){
+	 //if the bank totals 7 it doesnt draw a card ever
+
+	 //calls a function to tell who wins or if tie
+	 hand_result = winner(bank, player);
+	 return cards_played;
+
+      }
+      else{
+	 //the cases where the banker doesnt draw a card needs to be evaluated
+	 hand_result = winner(bank, player);
+	 return cards_played;
+      }
+   }
 }
 
 

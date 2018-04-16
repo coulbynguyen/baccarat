@@ -12,3 +12,7 @@ rm -f sum30.txt
 rm -f player10file.txt
 rm -f player20file.txt
 rm -f player30file.txt
+rm -f sidestreakfile.txt
+rm -f playerrowfile.txt
+rm -f bankrowfile.txt
+rm -f sixtrackfeatures.txt
