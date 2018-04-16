@@ -205,7 +205,7 @@ int main(){
 	player_last30[0] = 0;
       }
 
-      if(hand_number >= 30){
+      if(hand_number >= 1){
 	 //only want to check data that is above hand number 30
 	 featuretable << setw(12) << streak_count << setw(12) << sum10 << setw(12) << playersum10 << setw(12) << sum20 << setw(12) << playersum20 <<  setw(12) << sum30 << setw(12) << playersum30 << setw(12) << hand_result << endl;
 	 streakcount << streak_count << endl;
