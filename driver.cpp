@@ -16,7 +16,7 @@ int main(){
    int count = 0;
    int hand_number = 0;
    int streak_count = 0;
-   
+
    float sum10 = 0;
    float sum20 = 0;
    float sum30 = 0;
@@ -58,7 +58,7 @@ int main(){
 
    ofstream featuretable;
    featuretable.open("featuretable.txt", ios::app);
-  
+
    ofstream sum10file;
    sum10file.open("sum10.txt", ios::app);
 
@@ -86,7 +86,7 @@ int main(){
    while(top_of_shoe < red_card){
       hand_number++;
       sum10 = 0;
-      sum20 = 0; 
+      sum20 = 0;
       sum30 = 0;
       playersum10 = 0;
       playersum20 = 0;
@@ -118,8 +118,14 @@ int main(){
       }
       //gets the previous sum before adding in the results of the hand that just happened
       if(hand_number <= 10){
-	 sum10 = (float)sum10 / (float)hand_number;
-	 playersum10 = (float)playersum10 / (float)hand_number;
+        if(hand_number == 1){
+          sum10 = (float)sum10 / 1;
+          playersum30 = (float)playersum30 / 1;
+        }
+        else{
+	         sum10 = (float)sum10 / (float)(hand_number-1);
+	         playersum30 = (float)playersum30 / (float)(hand_number-1);
+        }
       }
       else{
 	 sum10 = (float)sum10 / 10;
@@ -148,9 +154,15 @@ int main(){
 	 playersum20 += player_last20[idx];
       }
       //gets the previous sum before adding in the results of the hand that just happened
-      if(hand_number <= 20){
-	 sum20 = (float)sum20 / (float)hand_number;
-	 playersum20 = (float)playersum20 / (float)hand_number;
+      if((hand_number) <= 20){
+        if(hand_number == 1){
+          sum20 = (float)sum20 / 1;
+          playersum20 = (float)playersum20 / 1;
+        }
+        else{
+	         sum20 = (float)sum20 / (float)(hand_number-1);
+	         playersum20 = (float)playersum20 / (float)(hand_number-1);
+        }
       }
       else{
 	 sum20 = (float)sum20 / 20;
@@ -179,9 +191,15 @@ int main(){
 	 playersum30 += player_last30[idx];
       }
       //gets the previous sum before adding in the results of the hand that just happened
-      if(hand_number <= 30){
-	 sum30 = (float)sum30 / (float)hand_number;
-	 playersum30 = (float)playersum30 / (float)hand_number;
+      if((hand_number) <= 30){
+        if(hand_number == 1){
+          sum30 = (float)sum30 / 1;
+          player10 = (float)playersum10 / 1;
+        }
+        else{
+	         sum30 = (float)sum30 / (float)(hand_number-1);
+	         playersum10 = (float)playersum10 / (float)(hand_number-1);
+        }
       }
       else{
 	 sum30 = (float)sum30 / 30;
