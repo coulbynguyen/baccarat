@@ -92,7 +92,7 @@ print (testlabels)
 print ("\n")
 print (clf.predict(testdescriptors))
 
-print (clf.predict([[1, 2, .8, .6, .433333, .1, .35, .46666, .55555, .3333333]]))
+print (clf.predict([[2, 1, .5, .5, .466667, .4, .4, .433333, .4, .6]]))
 
 from sklearn.metrics import accuracy_score
 print (accuracy_score(testlabels, predictions))
