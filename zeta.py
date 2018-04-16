@@ -49,7 +49,7 @@ for x in range(20000):
    # oneset = [count];
    # oneset = [streakcount, bank10, bank20, bank30, count, lasthand]
    oneset = [streakcount, bank10, bank20, bank30]
-   if x < 19950:
+   if x < 19900:
       descriptors.append(oneset)
       labels.append(result)
    else:
@@ -62,8 +62,11 @@ clf.fit(descriptors, labels)
 predictions = clf.predict(testdescriptors)
 
 print (testlabels)
+# print (testdescriptors)
 print ("\n")
 print (clf.predict(testdescriptors))
+
+
 
 from sklearn.metrics import accuracy_score
 print (accuracy_score(testlabels, predictions))
