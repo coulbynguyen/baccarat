@@ -17,6 +17,12 @@ banklast20 = open("sum20.txt", "r")
 
 banklast30 = open("sum30.txt", "r")
 
+playerlast10file = open("player10file.txt", "r");
+
+playerlast20file = open("player20file.txt", "r");
+
+playerlast30file = open("player30file.txt", "r");
+
 labels = []
 
 testlabels = []
@@ -30,13 +36,13 @@ testdescriptors = []
 # descriptornames = ["COUNT", "HAND NUMBER", "LAST HAND RESULT", "STREAK COUNT"]
 # descriptornames = ["COUNT"]
 # descriptornames = ["STREAK COUNT", "BANKER IN THE LAST 10", "BANKER IN THE LAST 20", "BANKER IN THE LAST 30", "PALACE COUNT", "LAST HAND WIN"]
-descriptornames = ["STREAK COUNT", "BANKER IN THE LAST 10", "BANKER IN THE LAST 20", "BANKER IN THE LAST 30"]
+descriptornames = ["STREAK COUNT", "BANKER IN THE LAST 10", "BANKER IN THE LAST 20", "BANKER IN THE LAST 30", "PLAYER IN THE LAST 10", "PLAYER IN THE LAST 20", "PLAYER IN THE LAST 30"]
 
 
 
 
 
-for x in range(20000):
+for x in range(5000):
    result = int(resultsfile.readline())
    count = int(countfile.readline())
    handnumber = int(handcount.readline())
@@ -45,11 +51,14 @@ for x in range(20000):
    bank10 = float(banklast10.readline())
    bank20 = float(banklast20.readline())
    bank30 = float(banklast30.readline())
+   player10 = float(playerlast10file.readline())
+   player20 = float(playerlast20file.readline())
+   player30 = float(playerlast30file.readline())
    # oneset = [count, handnumber, lasthand, streakcount]
    # oneset = [count];
    # oneset = [streakcount, bank10, bank20, bank30, count, lasthand]
-   oneset = [streakcount, bank10, bank20, bank30]
-   if x < 19900:
+   oneset = [streakcount, bank10, bank20, bank30, player10, player20, player30]
+   if x < 4950:
       descriptors.append(oneset)
       labels.append(result)
    else:
