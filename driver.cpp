@@ -76,7 +76,8 @@ int main(){
 
       //print out count, winner, cards
       //if((hand_number > 20)&&(hand_number < 50)){
-      if(hand_number > 1){
+      if(hand_number >= 30){
+	 //only want to keep track of info of hands above 30
 	 lasthand << last_hand << endl;
 	 newcount << count << endl;
 	 handcount << hand_number << endl;
@@ -88,7 +89,7 @@ int main(){
       cards_played = play_hand(shoe, top_of_shoe, count, hand_result);
 
       //if((hand_number > 20)&&(hand_number < 50)){
-      if(hand_number > 1){
+      if(hand_number >= 30){
 	 labels << hand_result << endl;
       }
 
@@ -156,13 +157,14 @@ int main(){
 	 bank_last30[0] = 0;
       }
 
-
-      featuretable << setw(12) << streak_count << setw(12) << sum10 << setw(12) << sum20 << setw(12) << sum30 << setw(12) << hand_result  << endl;
-      streakcount << streak_count << endl;
-      sum10file << sum10 << endl;
-      sum20file << sum20 << endl;
-      sum30file << sum30 << endl;
-
+      if(hand_number >= 30){
+	 //only want to check data that is above hand number 30
+	 featuretable << setw(12) << streak_count << setw(12) << sum10 << setw(12) << sum20 << setw(12) << sum30 << setw(12) << hand_result  << endl;
+	 streakcount << streak_count << endl;
+	 sum10file << sum10 << endl;
+	 sum20file << sum20 << endl;
+	 sum30file << sum30 << endl;
+      }
 
 
       if(last_hand == hand_result){

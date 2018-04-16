@@ -29,13 +29,14 @@ testdescriptors = []
 
 # descriptornames = ["COUNT", "HAND NUMBER", "LAST HAND RESULT", "STREAK COUNT"]
 # descriptornames = ["COUNT"]
-descriptornames = ["STREAK COUNT", "BANKER IN THE LAST 10", "BANKER IN THE LAST 20", "BANKER IN THE LAST 30", "PALACE COUNT", "LAST HAND WIN"]
+# descriptornames = ["STREAK COUNT", "BANKER IN THE LAST 10", "BANKER IN THE LAST 20", "BANKER IN THE LAST 30", "PALACE COUNT", "LAST HAND WIN"]
+descriptornames = ["STREAK COUNT", "BANKER IN THE LAST 10", "BANKER IN THE LAST 20", "BANKER IN THE LAST 30"]
 
 
 
 
 
-for x in range(5000):
+for x in range(20000):
    result = int(resultsfile.readline())
    count = int(countfile.readline())
    handnumber = int(handcount.readline())
@@ -46,8 +47,9 @@ for x in range(5000):
    bank30 = float(banklast30.readline())
    # oneset = [count, handnumber, lasthand, streakcount]
    # oneset = [count];
-   oneset = [streakcount, bank10, bank20, bank30, count, lasthand]
-   if x < 4900:
+   # oneset = [streakcount, bank10, bank20, bank30, count, lasthand]
+   oneset = [streakcount, bank10, bank20, bank30]
+   if x < 19950:
       descriptors.append(oneset)
       labels.append(result)
    else:
@@ -69,7 +71,7 @@ print (accuracy_score(testlabels, predictions))
 
 
 # below is the code that creates the graph but right now i need to work on finding out what data is relevant
-import graphviz
-dot_data = tree.export_graphviz(clf, out_file=None, feature_names=descriptornames, class_names=labelnames, filled=True, rounded=True, special_characters=True, impurity=False)
-graph = graphviz.Source(dot_data)
-graph.render("Baccarat")
+# import graphviz
+# dot_data = tree.export_graphviz(clf, out_file=None, feature_names=descriptornames, class_names=labelnames, filled=True, rounded=True, special_characters=True, impurity=False)
+# graph = graphviz.Source(dot_data)
+# graph.render("Baccarat")
