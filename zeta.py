@@ -36,13 +36,14 @@ testdescriptors = []
 # descriptornames = ["COUNT", "HAND NUMBER", "LAST HAND RESULT", "STREAK COUNT"]
 # descriptornames = ["COUNT"]
 # descriptornames = ["STREAK COUNT", "BANKER IN THE LAST 10", "BANKER IN THE LAST 20", "BANKER IN THE LAST 30", "PALACE COUNT", "LAST HAND WIN"]
+# descriptornames = ["STREAK COUNT", "BANKER IN THE LAST 10", "BANKER IN THE LAST 20", "BANKER IN THE LAST 30", "PLAYER IN THE LAST 10", "PLAYER IN THE LAST 20", "PLAYER IN THE LAST 30", "LAST HAND RESULT"]
 descriptornames = ["STREAK COUNT", "BANKER IN THE LAST 10", "BANKER IN THE LAST 20", "BANKER IN THE LAST 30", "PLAYER IN THE LAST 10", "PLAYER IN THE LAST 20", "PLAYER IN THE LAST 30"]
 
 
 
 
 
-for x in range(5000):
+for x in range(100000):
    result = int(resultsfile.readline())
    count = int(countfile.readline())
    handnumber = int(handcount.readline())
@@ -58,7 +59,7 @@ for x in range(5000):
    # oneset = [count];
    # oneset = [streakcount, bank10, bank20, bank30, count, lasthand]
    oneset = [streakcount, bank10, bank20, bank30, player10, player20, player30]
-   if x < 4950:
+   if x < 99000:
       descriptors.append(oneset)
       labels.append(result)
    else:
@@ -70,10 +71,10 @@ clf.fit(descriptors, labels)
 
 predictions = clf.predict(testdescriptors)
 
-print (testlabels)
+# print (testlabels)
 # print (testdescriptors)
 print ("\n")
-print (clf.predict(testdescriptors))
+# print (clf.predict(testdescriptors))
 
 
 

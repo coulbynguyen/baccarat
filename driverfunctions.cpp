@@ -15,6 +15,7 @@ void fill_shoe(int shoe[416]){
 }
 
 void adjustcount(int card, int& count){
+   /*
 	if((card == 1) || (card == 2) || (card == 3)){
 		count += 1;
 	}	   
@@ -27,6 +28,37 @@ void adjustcount(int card, int& count){
 	else if(card == 6){
 		count -= 2;
 	}
+	*/
+   if(card == 10){
+	count += 188;
+   }
+   else if(card == 1){
+	count += 440;
+   }
+   else if(card == 2){
+	count += 522;
+   }
+   else if(card == 3){
+	count += 649;
+   }
+   else if(card == 4){
+	count += 1157;
+   }
+   else if(card == 5){
+	count -= 827;
+   }
+   else if(card == 6){
+	count -=1132;
+   }
+   else if(card == 7){
+	count -= 827;
+   }
+   else if(card == 8){
+	count -= 502;
+   }
+   else if(card == 9){
+	count -= 231;
+   }
 
 }
 
