@@ -118,14 +118,8 @@ int main(){
       }
       //gets the previous sum before adding in the results of the hand that just happened
       if(hand_number <= 10){
-        if(hand_number == 1){
-          sum10 = (float)sum10 / 1;
-          playersum30 = (float)playersum30 / 1;
-        }
-        else{
-	         sum10 = (float)sum10 / (float)(hand_number-1);
-	         playersum30 = (float)playersum30 / (float)(hand_number-1);
-        }
+	 sum10 = (float)sum10 / (float)hand_number;
+	 playersum10 = (float)playersum10 / (float)hand_number;
       }
       else{
 	 sum10 = (float)sum10 / 10;
@@ -154,15 +148,9 @@ int main(){
 	 playersum20 += player_last20[idx];
       }
       //gets the previous sum before adding in the results of the hand that just happened
-      if((hand_number) <= 20){
-        if(hand_number == 1){
-          sum20 = (float)sum20 / 1;
-          playersum20 = (float)playersum20 / 1;
-        }
-        else{
-	         sum20 = (float)sum20 / (float)(hand_number-1);
-	         playersum20 = (float)playersum20 / (float)(hand_number-1);
-        }
+      if(hand_number <= 20){
+	 sum20 = (float)sum20 / (float)hand_number;
+	 playersum20 = (float)playersum20 / (float)hand_number;
       }
       else{
 	 sum20 = (float)sum20 / 20;
@@ -191,15 +179,9 @@ int main(){
 	 playersum30 += player_last30[idx];
       }
       //gets the previous sum before adding in the results of the hand that just happened
-      if((hand_number) <= 30){
-        if(hand_number == 1){
-          sum30 = (float)sum30 / 1;
-          player10 = (float)playersum10 / 1;
-        }
-        else{
-	         sum30 = (float)sum30 / (float)(hand_number-1);
-	         playersum10 = (float)playersum10 / (float)(hand_number-1);
-        }
+      if(hand_number <= 30){
+	 sum30 = (float)sum30 / (float)hand_number;
+	 playersum30 = (float)playersum30 / (float)hand_number;
       }
       else{
 	 sum30 = (float)sum30 / 30;
