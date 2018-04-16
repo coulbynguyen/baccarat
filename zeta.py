@@ -62,7 +62,7 @@ for x in range(5000):
    bank20 = float(banklast20.readline())
    bank30 = float(banklast30.readline())
    bankrow = float(bankrowfile.readline())
-   
+
    player10 = float(playerlast10file.readline())
    player20 = float(playerlast20file.readline())
    player30 = float(playerlast30file.readline())
@@ -92,7 +92,7 @@ print (testlabels)
 print ("\n")
 print (clf.predict(testdescriptors))
 
-
+print (clf.predict([[1, 2, .8, .6, .433333, .1, .35, .46666, .55555, .3333333]]))
 
 from sklearn.metrics import accuracy_score
 print (accuracy_score(testlabels, predictions))
