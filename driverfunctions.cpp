@@ -43,7 +43,9 @@ void sixtrackdata(int sixtrack[6][14], int row, int col){
 	float bankrowsum = 0;
 	int sidestreak = 1;
 	int num_of_cols = 0;
-	for(int i = 0; i <= col; i++){
+	row = (row+1)%6;
+
+	for(int i = 0; i < col; i++){
 		if(sixtrack[row][i] == 0){
 		   	//the number of banks for that row should be increased by 1 if bank was found in that row
 			bankrowsum += 1;

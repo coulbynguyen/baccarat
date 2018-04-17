@@ -50,7 +50,7 @@ descriptornames = ["STREAK COUNT", "SIDESTREAK COUNT", "BANKER IN THE LAST 10", 
 
 
 
-for x in range(5000):
+for x in range(17000):
    result = int(resultsfile.readline())
    count = int(countfile.readline())
    handnumber = int(handcount.readline())
@@ -70,17 +70,18 @@ for x in range(5000):
 
    # oneset = [count];
    # oneset = [count, handnumber, lasthand, streakcount]
+   # oneset = [streakcount, sidestreak, playerrow, bankrow]
    # oneset = [streakcount, bank10, bank20, bank30, count, lasthand]
    # oneset = [streakcount, bank10, bank20, bank30, player10, player20, player30]
    oneset = [streakcount, sidestreak, bank10, bank20, bank30, player10, player20, player30, playerrow, bankrow]
-   if x < 4900:
+   if x < 16900:
       descriptors.append(oneset)
-      labels.append(lasthand)
-      # labels.append(result)
+      # labels.append(lasthand)
+      labels.append(result)
    else:
       testdescriptors.append(oneset)
-      testlabels.append(lasthand)
-      # testlabels.append(result)
+      # testlabels.append(lasthand)
+      testlabels.append(result)
 
 clf = tree.DecisionTreeClassifier()
 clf.fit(descriptors, labels)
@@ -91,8 +92,6 @@ print (testlabels)
 # print (testdescriptors)
 print ("\n")
 print (clf.predict(testdescriptors))
-
-print (clf.predict([[2, 1, .5, .5, .466667, .4, .4, .433333, .4, .6]]))
 
 from sklearn.metrics import accuracy_score
 print (accuracy_score(testlabels, predictions))
